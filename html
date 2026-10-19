@@ -1,0 +1,2857 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayang's English Space — Dear Sayang, Let's Fluent 💙</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top, #0f2942 0%, #071526 55%, #040d1a 100%);
+            color: #f0f9ff;
+        }
+        .glass-card {
+            background: rgba(12, 34, 58, 0.72);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(125, 211, 252, 0.18);
+            box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.2);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
+        }
+        .animate-glow {
+            animation: pulseGlow 2.4s infinite ease-in-out;
+        }
+        @keyframes dropdownFadeIn {
+            from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .custom-dropdown-menu {
+            background: rgba(8, 26, 48, 0.96);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 20px 40px -12px rgba(2, 12, 27, 0.85), 0 0 20px -5px rgba(14, 165, 233, 0.25);
+            animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .custom-dropdown-item {
+            transition: all 0.15s ease;
+        }
+        .custom-dropdown-item:hover {
+            background: linear-gradient(90deg, rgba(14, 165, 233, 0.22) 0%, rgba(6, 182, 212, 0.1) 100%);
+        }
+        .custom-dropdown-item.active {
+            background: linear-gradient(90deg, rgba(14, 165, 233, 0.3) 0%, rgba(56, 189, 248, 0.12) 100%);
+            border-left: 3px solid #38bdf8;
+        }
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            15% { transform: translateX(-8px) rotate(-1deg); }
+            30% { transform: translateX(7px) rotate(1deg); }
+            45% { transform: translateX(-6px) rotate(-0.5deg); }
+            60% { transform: translateX(5px) rotate(0.5deg); }
+            75% { transform: translateX(-3px); }
+        }
+        @keyframes correctPop {
+            0% { transform: scale(1); }
+            35% { transform: scale(1.035) translateY(-3px); }
+            70% { transform: scale(0.99); }
+            100% { transform: scale(1); }
+        }
+        @keyframes floatParticle {
+            0% { opacity: 1; transform: translate(0, 0) scale(0.7); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.25) rotate(15deg); }
+        }
+        .animate-wrong-shake {
+            animation: wrongShake 0.48s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+        .animate-correct-pop {
+            animation: correctPop 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .feedback-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 60;
+            font-size: 1.15rem;
+            animation: floatParticle 0.85s ease-out forwards;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #071526;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e4976;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0284c7;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-sky-50 selection:bg-sky-500 selection:text-white">
+
+    <!-- Toast Notification Container (No alert/confirm) -->
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 border-b border-sky-900/60 bg-[#071526]/85 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                    <i class="ph-fill ph-heart text-white text-xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-sky-200 to-cyan-300 bg-clip-text text-transparent">
+                            Sayang's English Space
+                        </h1>
+                        <span class="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-200 border border-sky-400/30">
+                            💙 Private Space
+                        </span>
+                    </div>
+                    <p class="text-xs text-sky-300/80 hidden sm:block">Dear Sayang, Let's Fluent • Ruang Belajar Bahasa Inggris Untuk Sayang Dari Bibi Tersayang</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs & Vercel API Settings -->
+            <div class="flex items-center gap-2">
+                <div class="bg-[#091b30] p-1 rounded-xl border border-sky-900/70 flex flex-wrap items-center text-xs sm:text-sm font-medium">
+                    <button onclick="switchTab('play')" id="tabBtn-play" class="px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow">
+                        <i class="ph-bold ph-sparkle"></i>
+                        <span>Latihan Kuis</span>
+                    </button>
+                    <button onclick="switchTab('vocab')" id="tabBtn-vocab" class="px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 text-sky-300/70 hover:text-white">
+                        <i class="ph-bold ph-book-bookmark"></i>
+                        <span>Kosakata</span>
+                        <span id="vocabBadge" class="text-[10px] px-1.5 py-0.2 bg-sky-500/25 text-sky-200 rounded-full border border-sky-400/30">0</span>
+                    </button>
+                    <button onclick="switchTab('wa')" id="tabBtn-wa" class="px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 text-sky-300/70 hover:text-white">
+                        <i class="ph-bold ph-whatsapp-logo"></i>
+                        <span class="hidden sm:inline">Format WA</span>
+                        <span id="waCountBadge" class="text-[10px] px-1.5 py-0.2 bg-sky-950 text-sky-300 rounded-full border border-sky-800/60">26</span>
+                    </button>
+                    <button onclick="switchTab('history')" id="tabBtn-history" class="px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 text-sky-300/70 hover:text-white">
+                        <i class="ph-bold ph-clock-counter-clockwise"></i>
+                        <span class="hidden md:inline">Riwayat</span>
+                        <span id="historyBadge" class="text-[10px] px-1.5 py-0.2 bg-cyan-500/20 text-cyan-300 rounded-full">0</span>
+                    </button>
+                </div>
+
+                <button id="btnToggleSfx" onclick="toggleSfxAndVibration()" title="Aktifkan/Matikan Suara & Getaran" class="p-2.5 rounded-xl bg-[#091b30] hover:bg-sky-950 text-sky-200 border border-sky-900/70 transition-colors relative">
+                    <i id="sfxIcon" class="ph-bold ph-speaker-high text-lg text-cyan-300"></i>
+                </button>
+
+                <button onclick="toggleApiModal(true)" title="Pengaturan API Key untuk Deploy Vercel" class="p-2.5 rounded-xl bg-[#091b30] hover:bg-sky-950 text-sky-200 border border-sky-900/70 transition-colors relative">
+                    <i class="ph-bold ph-key text-lg"></i>
+                    <span id="apiStatusDot" class="w-2.5 h-2.5 rounded-full bg-cyan-400 absolute top-1.5 right-1.5 ring-2 ring-[#071526]"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+        <!-- Generator Control Card -->
+        <section class="glass-card rounded-2xl p-5 sm:p-6 shadow-xl relative z-30">
+            <!-- Decorative Glow Wrapper (Clipped separately so dropdowns can float freely) -->
+            <div class="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                <div class="absolute -right-16 -top-16 w-64 h-64 bg-sky-400/15 rounded-full blur-3xl"></div>
+                <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="relative flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-sky-800/40">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-semibold text-sky-300 mb-1.5 px-2.5 py-1 rounded-full bg-sky-500/15 border border-sky-400/25">
+                        <i class="ph-fill ph-waves text-cyan-300"></i>
+                        <span>SPECIAL FOR YOU • 5 GRAMMAR WAJIB DAILY CONVERSATION</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-white via-sky-200 to-cyan-300 bg-clip-text text-transparent">
+                        Dear Sayang, Let's Fluent 💙
+                    </h2>
+                    <p class="text-xs sm:text-sm text-sky-200/80 mt-1">
+                        Pelan-pelan aja belajarnya ya! Klik <span class="text-sky-300 font-semibold">"Mulai Kuis Baru"</span> kapan pun kamu siap latihan kalimat sehari-hari.
+                    </p>
+                </div>
+
+                <!-- Trigger Button ("Buat") -->
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button id="btnQuickAuto" onclick="triggerGenerateQuiz(true)" class="px-4 py-3 rounded-xl bg-[#091e36] hover:bg-sky-950/90 text-sky-100 font-semibold text-xs sm:text-sm border border-sky-700/60 transition-all flex items-center gap-2">
+                        <i class="ph-bold ph-shuffle text-sky-400 text-base"></i>
+                        <span>Acak Kuis Buat Sayang</span>
+                    </button>
+                    <button id="btnGenerate" onclick="triggerGenerateQuiz(false)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-white font-bold text-sm shadow-lg shadow-sky-500/30 transition-all flex items-center gap-2 active:scale-95">
+                        <i id="btnGenerateIcon" class="ph-bold ph-sparkle text-lg"></i>
+                        <span id="btnGenerateText">Mulai Kuis Baru</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Options Grid (Custom Unified Blue Sky Dropdowns) -->
+            <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-5">
+                <!-- 1. Quiz Type Selector -->
+                <div class="relative" data-dropdown="selectQuizType">
+                    <label class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-sky-300/90 mb-1.5">
+                        <i class="ph-fill ph-Stack text-sky-400"></i>
+                        <span>1. Jenis Kuis (1 Jenis / Sesi)</span>
+                    </label>
+                    <input type="hidden" id="selectQuizType" value="AUTO">
+                    <button type="button" onclick="toggleCustomDropdown('selectQuizType', event)" class="w-full bg-[#07182c]/90 hover:bg-[#0b223d] border border-sky-700/60 hover:border-sky-400/70 rounded-xl px-3.5 py-2.5 text-sm text-sky-50 flex items-center justify-between gap-2 transition-all shadow-inner shadow-sky-950/60 focus:outline-none focus:ring-2 focus:ring-sky-400/40">
+                        <span id="label-selectQuizType" class="truncate font-medium">🔄 Otomatis Rotasi (Rekomendasi)</span>
+                        <i id="caret-selectQuizType" class="ph-bold ph-caret-down text-sky-400 shrink-0 transition-transform duration-200"></i>
+                    </button>
+                    <div id="menu-selectQuizType" class="custom-dropdown-menu hidden absolute left-0 right-0 top-full mt-2 rounded-xl py-1.5 z-50 max-h-64 overflow-y-auto">
+                        <button type="button" onclick="selectCustomOption('selectQuizType', 'AUTO', '🔄 Otomatis Rotasi (Rekomendasi)')" data-value="AUTO" class="custom-dropdown-item active w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🔄 Otomatis Rotasi (Rekomendasi)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuizType', 'FILL_BLANK', '1. Fill in the Blanks (Isi Rumpang)')" data-value="FILL_BLANK" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>1. Fill in the Blanks (Isi Rumpang)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuizType', 'TRANSLATION', '2. Translation (Terjemahan Akurat)')" data-value="TRANSLATION" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>2. Translation (Terjemahan Akurat)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuizType', 'TIME_SIGNAL', '3. Time Signal Matching (Penanda Waktu)')" data-value="TIME_SIGNAL" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>3. Time Signal Matching (Penanda Waktu)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuizType', 'QUESTION_FORM', '4. Question Formation (Susun Pertanyaan)')" data-value="QUESTION_FORM" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>4. Question Formation (Susun Pertanyaan)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuizType', 'ERROR_RECOG', '5. Error Recognition (Koreksi Kalimat)')" data-value="ERROR_RECOG" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>5. Error Recognition (Koreksi Kalimat)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuizType', 'RULE_TOBE', '6. To-Be & Auxiliary Focus (Aturan Dasar)')" data-value="RULE_TOBE" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>6. To-Be & Auxiliary Focus (Aturan Dasar)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Question Count Selector -->
+                <div class="relative" data-dropdown="selectQuestionCount">
+                    <label class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-sky-300/90 mb-1.5">
+                        <i class="ph-fill ph-list-numbers text-cyan-400"></i>
+                        <span>2. Jumlah Soal</span>
+                    </label>
+                    <input type="hidden" id="selectQuestionCount" value="5">
+                    <button type="button" onclick="toggleCustomDropdown('selectQuestionCount', event)" class="w-full bg-[#07182c]/90 hover:bg-[#0b223d] border border-sky-700/60 hover:border-sky-400/70 rounded-xl px-3.5 py-2.5 text-sm text-sky-50 flex items-center justify-between gap-2 transition-all shadow-inner shadow-sky-950/60 focus:outline-none focus:ring-2 focus:ring-sky-400/40">
+                        <span id="label-selectQuestionCount" class="truncate font-medium">⚡ 5 Soal (Santai & Cepat)</span>
+                        <i id="caret-selectQuestionCount" class="ph-bold ph-caret-down text-sky-400 shrink-0 transition-transform duration-200"></i>
+                    </button>
+                    <div id="menu-selectQuestionCount" class="custom-dropdown-menu hidden absolute left-0 right-0 top-full mt-2 rounded-xl py-1.5 z-50">
+                        <button type="button" onclick="selectCustomOption('selectQuestionCount', '5', '⚡ 5 Soal (Santai & Cepat)')" data-value="5" class="custom-dropdown-item active w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>⚡ 5 Soal (Santai & Cepat)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuestionCount', 'AUTO', '🎲 Otomatis Acak (5 / 10 / 15 Soal)')" data-value="AUTO" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🎲 Otomatis Acak (5 / 10 / 15 Soal)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuestionCount', '10', '📚 10 Soal (2 Soal per Grammar)')" data-value="10" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>📚 10 Soal (2 Soal per Grammar)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectQuestionCount', '15', '🌊 15 Soal (Latihan Ekstra)')" data-value="15" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🌊 15 Soal (Latihan Ekstra)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Daily Context Selector -->
+                <div class="relative" data-dropdown="selectContextTheme">
+                    <label class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-sky-300/90 mb-1.5">
+                        <i class="ph-fill ph-chats-circle text-sky-400"></i>
+                        <span>3. Tema Percakapan Harian</span>
+                    </label>
+                    <input type="hidden" id="selectContextTheme" value="AUTO">
+                    <button type="button" onclick="toggleCustomDropdown('selectContextTheme', event)" class="w-full bg-[#07182c]/90 hover:bg-[#0b223d] border border-sky-700/60 hover:border-sky-400/70 rounded-xl px-3.5 py-2.5 text-sm text-sky-50 flex items-center justify-between gap-2 transition-all shadow-inner shadow-sky-950/60 focus:outline-none focus:ring-2 focus:ring-sky-400/40">
+                        <span id="label-selectContextTheme" class="truncate font-medium">🌈 Variasi Otomatis (Anti-Bosan)</span>
+                        <i id="caret-selectContextTheme" class="ph-bold ph-caret-down text-sky-400 shrink-0 transition-transform duration-200"></i>
+                    </button>
+                    <div id="menu-selectContextTheme" class="custom-dropdown-menu hidden absolute left-0 right-0 top-full mt-2 rounded-xl py-1.5 z-50 max-h-64 overflow-y-auto">
+                        <button type="button" onclick="selectCustomOption('selectContextTheme', 'AUTO', '🌈 Variasi Otomatis (Anti-Bosan)')" data-value="AUTO" class="custom-dropdown-item active w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🌈 Variasi Otomatis (Anti-Bosan)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectContextTheme', 'Pekerjaan & Kantor', '💼 Pekerjaan & Kantor')" data-value="Pekerjaan & Kantor" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>💼 Pekerjaan & Kantor</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectContextTheme', 'Belanja & Kuliner', '🛒 Belanja & Kuliner')" data-value="Belanja & Kuliner" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🛒 Belanja & Kuliner</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectContextTheme', 'Keluarga & Rumah', '🏠 Keluarga & Rumah')" data-value="Keluarga & Rumah" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🏠 Keluarga & Rumah</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectContextTheme', 'Hangout & Teman', '☕ Hangout & Teman')" data-value="Hangout & Teman" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>☕ Hangout & Teman</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectContextTheme', 'Rencana Liburan', '✈️ Rencana Liburan')" data-value="Rencana Liburan" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>✈️ Rencana Liburan</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectContextTheme', 'Masalah & Perasaan Harian', '🌧️ Masalah & Perasaan Harian')" data-value="Masalah & Perasaan Harian" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🌧️ Masalah & Perasaan Harian</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Generation Engine Mode -->
+                <div class="relative" data-dropdown="selectEngineMode">
+                    <label class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-sky-300/90 mb-1.5">
+                        <i class="ph-fill ph-cpu text-cyan-400"></i>
+                        <span>4. Mesin Generator</span>
+                    </label>
+                    <input type="hidden" id="selectEngineMode" value="HYBRID">
+                    <button type="button" onclick="toggleCustomDropdown('selectEngineMode', event)" class="w-full bg-[#07182c]/90 hover:bg-[#0b223d] border border-sky-700/60 hover:border-sky-400/70 rounded-xl px-3.5 py-2.5 text-sm text-sky-50 flex items-center justify-between gap-2 transition-all shadow-inner shadow-sky-950/60 focus:outline-none focus:ring-2 focus:ring-sky-400/40">
+                        <span id="label-selectEngineMode" class="truncate font-medium">🤖 Gemini AI + Smart Fallback</span>
+                        <i id="caret-selectEngineMode" class="ph-bold ph-caret-down text-sky-400 shrink-0 transition-transform duration-200"></i>
+                    </button>
+                    <div id="menu-selectEngineMode" class="custom-dropdown-menu hidden absolute left-0 right-0 top-full mt-2 rounded-xl py-1.5 z-50">
+                        <button type="button" onclick="selectCustomOption('selectEngineMode', 'HYBRID', '🤖 Gemini AI + Smart Fallback')" data-value="HYBRID" class="custom-dropdown-item active w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>🤖 Gemini AI + Smart Fallback</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon"></i>
+                        </button>
+                        <button type="button" onclick="selectCustomOption('selectEngineMode', 'LOCAL', '⚡ Instan Lokal (0 Detik / Tanpa Kuota)')" data-value="LOCAL" class="custom-dropdown-item w-full text-left px-3.5 py-2.5 text-xs sm:text-sm text-sky-100 flex items-center justify-between gap-2">
+                            <span>⚡ Instan Lokal (0 Detik / Tanpa Kuota)</span>
+                            <i class="ph-bold ph-check text-cyan-300 check-icon hidden"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 Mandatory Grammar Pills -->
+            <div class="mt-4 pt-3 border-t border-sky-800/40 flex flex-wrap items-center gap-2">
+                <span class="text-xs text-sky-300/80 font-medium mr-1">5 Fokus Grammar Sayang:</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-[#07182c] border border-sky-700/50 text-sky-300 font-medium">1. Simple Present</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-[#07182c] border border-cyan-700/50 text-cyan-300 font-medium">2. Present Continuous</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-[#07182c] border border-blue-700/50 text-blue-300 font-medium">3. Simple Past</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-[#07182c] border border-teal-700/50 text-teal-300 font-medium">4. Simple Future</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-[#07182c] border border-indigo-700/50 text-indigo-300 font-medium">5. Modal Auxiliaries</span>
+            </div>
+        </section>
+
+        <!-- Loading State Banner -->
+        <div id="loadingBanner" class="hidden glass-card rounded-2xl p-8 text-center space-y-4 border border-sky-400/30">
+            <div class="w-14 h-14 rounded-2xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center mx-auto animate-glow">
+                <i class="ph-bold ph-spinner animate-spin text-3xl text-sky-300"></i>
+            </div>
+            <div class="space-y-1">
+                <h3 id="loadingTitle" class="text-lg font-bold text-white">Menyiapkan Soal Spesial Buat Sayang... 💙</h3>
+                <p id="loadingSubtitle" class="text-xs sm:text-sm text-sky-200/80 max-w-md mx-auto">
+                    Memilih kalimat pendek sehari-hari (5–10 kata) yang seru dan belum pernah keluar sebelumnya.
+                </p>
+            </div>
+        </div>
+
+        <!-- TAB 1: INTERACTIVE QUIZ VIEW -->
+        <section id="view-play" class="space-y-6">
+            <!-- Active Session Metadata Bar -->
+            <div class="glass-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span id="activeQuizTypeBadge" class="px-3 py-1 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-200 text-xs font-bold uppercase tracking-wide">
+                        Jenis Kuis: -
+                    </span>
+                    <span id="activeThemeBadge" class="px-3 py-1 rounded-xl bg-[#07182c] border border-sky-800/60 text-sky-200 text-xs font-medium">
+                        Konteks: -
+                    </span>
+                    <span class="px-3 py-1 rounded-xl bg-cyan-500/15 border border-cyan-400/30 text-cyan-200 text-xs font-medium flex items-center gap-1">
+                        <i class="ph-fill ph-heart"></i> Semangat Belajarnya Sayang!
+                    </span>
+                </div>
+
+                <!-- Score & Progress Tracker -->
+                <div class="flex items-center gap-4 ml-auto">
+                    <div class="text-right">
+                        <div class="text-[11px] uppercase tracking-wider text-sky-300/70">Progres Sayang</div>
+                        <div id="quizProgressText" class="text-sm font-bold text-white">0 / 5 Soal</div>
+                    </div>
+                    <div class="h-8 w-px bg-sky-800/60"></div>
+                    <div class="text-right">
+                        <div class="text-[11px] uppercase tracking-wider text-sky-300/70">Skor Saat Ini</div>
+                        <div id="quizScoreText" class="text-sm font-extrabold text-cyan-300">0 Poin</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questions List Container -->
+            <div id="interactiveQuestionsContainer" class="space-y-5"></div>
+
+            <!-- Final Summary Card (Revealed or Toggleable) -->
+            <div id="quizSummaryBanner" class="hidden glass-card rounded-2xl p-6 border border-sky-400/40 bg-gradient-to-br from-[#0b223e]/95 to-sky-950/70">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-sky-800/60">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-sky-300">✨ Hasil Latihan Sayang Hari Ini</span>
+                        <h3 id="finalScoreTitle" class="text-2xl font-extrabold text-white mt-0.5">Skor Akhir: 100 / 100</h3>
+                        <p id="finalScoreFeedback" class="text-sm text-sky-100 mt-1"></p>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <button onclick="switchTab('vocab')" class="px-4 py-2.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-100 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all">
+                            <i class="ph-bold ph-book-bookmark text-cyan-300 text-base"></i>
+                            <span>Koleksi Kosakata</span>
+                        </button>
+                        <button onclick="switchTab('wa')" class="px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs sm:text-sm font-bold flex items-center gap-2 transition-all">
+                            <i class="ph-bold ph-whatsapp-logo text-base"></i>
+                            <span>Lihat Format WA</span>
+                        </button>
+                        <button onclick="triggerGenerateQuiz(true)" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs sm:text-sm font-bold flex items-center gap-2 transition-all shadow-lg shadow-sky-500/25">
+                            <i class="ph-bold ph-arrows-clockwise text-base"></i>
+                            <span>Latihan Lagi Yuk! 💙</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="summaryBreakdownList" class="mt-4 space-y-2.5 text-xs sm:text-sm"></div>
+
+                <div class="mt-6 pt-5 border-t border-sky-800/60">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3.5">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
+                                <i class="ph-fill ph-sparkle"></i>
+                                <span>Ringkasan Vocabulary dari Kuis Ini</span>
+                            </span>
+                            <h4 class="text-base sm:text-lg font-extrabold text-white mt-0.5">
+                                Kosakata Penting Biar Sayang Makin Hafal 💙
+                            </h4>
+                        </div>
+                        <button onclick="toggleBlindMemorizeMode()" class="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-[#07182c] hover:bg-sky-900/70 border border-sky-700/60 text-xs font-semibold text-sky-200 flex items-center gap-1.5 transition-all">
+                            <i class="ph-bold ph-eye-slash text-cyan-300"></i>
+                            <span class="blind-mode-label">Mode Tes Hafalan: Mati</span>
+                        </button>
+                    </div>
+                    <div id="quizSummaryVocabGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: VOCABULARY SUMMARY & FLASHCARD BANK VIEW -->
+        <section id="view-vocab" class="hidden space-y-6">
+            <div class="glass-card rounded-2xl p-5 sm:p-6">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-sky-800/50">
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-300 uppercase tracking-wider mb-1">
+                            <i class="ph-fill ph-book-open-text"></i>
+                            <span>KAMUS MINI & HAFALAN SAYANG</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-white">
+                            Ringkasan Vocabulary dari Kuis yang Dikerjakan 💙
+                        </h3>
+                        <p class="text-xs sm:text-sm text-sky-200/80 mt-1">
+                            Semua kata kerja, keterangan waktu, dan kosakata harian dari soal yang sudah Sayang kerjakan terkumpul di sini supaya gampang dipahami & dihafal.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <button onclick="toggleBlindMemorizeMode()" class="px-3.5 py-2.5 rounded-xl bg-[#07182c] hover:bg-sky-950 border border-sky-700/70 text-sky-100 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all">
+                            <i class="ph-bold ph-eye-slash text-cyan-300 text-base"></i>
+                            <span class="blind-mode-label">Mode Tes Hafalan: Mati</span>
+                        </button>
+                        <button onclick="filterVocabBank('ALL')" id="vocabFilter-ALL" class="px-3.5 py-2 rounded-xl bg-sky-500 text-white text-xs font-bold transition-all">
+                            Semua (<span id="countAllVocab">0</span>)
+                        </button>
+                        <button onclick="filterVocabBank('UNMEMORIZED')" id="vocabFilter-UNMEMORIZED" class="px-3.5 py-2 rounded-xl bg-[#07182c] hover:bg-sky-950 text-sky-200 border border-sky-800/60 text-xs font-semibold transition-all">
+                            Sedang Dihafal (<span id="countUnmemorizedVocab">0</span>)
+                        </button>
+                        <button onclick="filterVocabBank('MEMORIZED')" id="vocabFilter-MEMORIZED" class="px-3.5 py-2 rounded-xl bg-[#07182c] hover:bg-sky-950 text-sky-200 border border-sky-800/60 text-xs font-semibold transition-all">
+                            Sudah Hafal 💙 (<span id="countMemorizedVocab">0</span>)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Helpful Memorization Tip Bar -->
+                <div class="mt-4 p-3.5 rounded-xl bg-sky-500/10 border border-sky-400/25 flex flex-wrap items-center justify-between gap-2 text-xs text-sky-200">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-lightbulb text-cyan-300 text-base shrink-0"></i>
+                        <span><strong>Tips Hafalan Cepat:</strong> Klik ikon 🔊 untuk dengar cara bacanya, aktifkan <strong>Mode Tes Hafalan</strong> untuk menebak arti kata, lalu tandai <strong>"Sudah Hafal 💙"</strong> kalau sudah di luar kepala!</span>
+                    </div>
+                </div>
+
+                <!-- Vocabulary Cards Grid -->
+                <div id="vocabBankContainer" class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+        </section>
+
+        <!-- TAB 2: WHATSAPP CHANNEL CODE BLOCKS VIEW -->
+        <section id="view-wa" class="hidden space-y-6">
+            <div class="glass-card rounded-2xl p-5 sm:p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">
+                            <i class="ph-fill ph-whatsapp-logo"></i>
+                            <span>SIAP COPY PASTE KE WHATSAPP CHANNEL</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Output Code Block Berurutan</h3>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Setiap Soal, Opsi A–D, dan Ringkasan Jawaban dipisah per blok sesuai spesifikasi standar (26 Code Block untuk 5 soal).
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="copyAllWaBlocks()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-600/20 transition-all">
+                            <i class="ph-bold ph-copySimple text-base"></i>
+                            <span>Salin Semua Code Block</span>
+                        </button>
+                        <button onclick="copyMasterPrompt()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm border border-slate-700 flex items-center gap-2 transition-all">
+                            <i class="ph-bold ph-terminal-window text-indigo-400 text-base"></i>
+                            <span>Salin Master Prompt AI</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 26 Code Blocks Grid -->
+                <div id="waBlocksContainer" class="mt-5 space-y-4"></div>
+            </div>
+        </section>
+
+        <!-- TAB 3: ANTI-REPETITION & HISTORY VIEW -->
+        <section id="view-history" class="hidden space-y-6">
+            <div class="glass-card rounded-2xl p-5 sm:p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="ph-bold ph-shield-check text-emerald-400"></i>
+                            <span>Memori Anti-Repetisi & Riwayat Kuis</span>
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                            Sistem menyimpan daftar kalimat target & jenis kuis yang sudah pernah dibuat agar sesi berikutnya tidak mengulang kalimat yang sama.
+                        </p>
+                    </div>
+                    <button onclick="clearSessionHistory()" class="px-3.5 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-semibold flex items-center gap-1.5 transition-colors self-start sm:self-auto">
+                        <i class="ph-bold ph-trash"></i>
+                        <span>Reset Memori Sesi</span>
+                    </button>
+                </div>
+
+                <div id="historyListContainer" class="mt-4 space-y-3"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- API Key Modal for Vercel Deployment -->
+    <div id="apiModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+        <div class="glass-card rounded-2xl max-w-md w-full p-6 border border-slate-700 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+                        <i class="ph-bold ph-key text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Pengaturan Gemini API Key</h3>
+                        <p class="text-xs text-slate-400">Opsional saat di-deploy ke Vercel</p>
+                    </div>
+                </div>
+                <button onclick="toggleApiModal(false)" class="text-slate-400 hover:text-white p-1">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+            </div>
+
+            <div class="text-xs text-slate-300 space-y-2 leading-relaxed bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                <p>
+                    <strong class="text-indigo-300">Di Gemini Canvas:</strong> Kosongkan saja, aplikasi otomatis terhubung ke Gemini API.
+                </p>
+                <p>
+                    <strong class="text-emerald-300">Di Vercel:</strong> Masukkan Gemini API Key dari Google AI Studio jika ingin generate soal tak terbatas dengan AI, atau biarkan kosong untuk memakai <em>Smart Procedural Generator</em> bawaan.
+                </p>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-400 uppercase mb-1.5">Gemini API Key (Opsional)</label>
+                <input id="customApiKeyInput" type="password" placeholder="AIzaSy..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 font-mono" />
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button onclick="toggleApiModal(false)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300">
+                    Tutup
+                </button>
+                <button onclick="saveCustomApiKey()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white">
+                    Simpan Konfigurasi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-sky-900/50 py-5 mt-10 text-center text-xs text-sky-300/60">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>Sayang's English Space 💙 — Dibuat Khusus dengan Penuh Sayang Untukmu</span>
+            <span class="text-sky-300/80">Dear Sayang, Let's Fluent • 5 Grammar Wajib</span>
+        </div>
+    </footer>
+
+    <script>
+        // Default environment API key (automatically injected by Canvas when left empty)
+        const apiKey = "";
+        let userCustomApiKey = "";
+
+        // 5 Mandatory Grammar Categories in Strict Order
+        const MANDATORY_GRAMMARS = [
+            {
+                id: "SIMPLE_PRESENT",
+                name: "Simple Present Tense",
+                shortName: "Simple Present",
+                badgeColor: "bg-sky-500/20 text-sky-200 border-sky-400/30",
+                focus: "Daily routines, habits, general truths, stative verbs"
+            },
+            {
+                id: "PRESENT_CONTINUOUS",
+                name: "Present Continuous Tense",
+                shortName: "Present Continuous",
+                badgeColor: "bg-cyan-500/20 text-cyan-200 border-cyan-400/30",
+                focus: "Actions happening now, temporary situations, annoying habits"
+            },
+            {
+                id: "SIMPLE_PAST",
+                name: "Simple Past Tense",
+                shortName: "Simple Past",
+                badgeColor: "bg-blue-500/20 text-blue-200 border-blue-400/30",
+                focus: "Completed actions, past habits, specific past time points"
+            },
+            {
+                id: "SIMPLE_FUTURE",
+                name: "Simple Future Tense",
+                shortName: "Simple Future",
+                badgeColor: "bg-teal-500/20 text-teal-200 border-teal-400/30",
+                focus: "Predictions, spontaneous decisions, plans with will / be going to"
+            },
+            {
+                id: "MODAL_AUXILIARIES",
+                name: "Modal Auxiliaries",
+                shortName: "Modal Auxiliaries",
+                badgeColor: "bg-indigo-500/20 text-indigo-200 border-indigo-400/30",
+                focus: "Can, could, may, might, must, should, would untuk daily context"
+            }
+        ];
+
+        // 6 Beginner-Friendly Quiz Types
+        const QUIZ_TYPES = {
+            FILL_BLANK: {
+                code: "FILL_BLANK",
+                label: "Fill in the Blanks (Isi Kalimat Rumpang)",
+                instructionPrefix: "Lengkapi kalimat rumpang berikut dengan kata yang paling tepat:"
+            },
+            TRANSLATION: {
+                code: "TRANSLATION",
+                label: "Translation (Terjemahan Kalimat Harian)",
+                instructionPrefix: "Pilih terjemahan bahasa Inggris yang paling tepat:"
+            },
+            TIME_SIGNAL: {
+                code: "TIME_SIGNAL",
+                label: "Time Signal Matching (Penanda Waktu)",
+                instructionPrefix: "Pilih keterangan waktu yang sesuai dengan grammar kalimat ini:"
+            },
+            QUESTION_FORM: {
+                code: "QUESTION_FORM",
+                label: "Question Formation (Menyusun Pertanyaan)",
+                instructionPrefix: "Pilih kalimat tanya yang strukturnya paling tepat untuk situasi ini:"
+            },
+            ERROR_RECOG: {
+                code: "ERROR_RECOG",
+                label: "Error Recognition (Koreksi Kalimat Salah)",
+                instructionPrefix: "Kalimat ini masih salah grammar-nya. Mana perbaikan yang paling tepat?"
+            },
+            RULE_TOBE: {
+                code: "RULE_TOBE",
+                label: "Rule & To-Be Focus (Pasangan Subject & Auxiliary)",
+                instructionPrefix: "Pilih pasangan Subject dan To-Be / Auxiliary yang benar:"
+            }
+        };
+
+        const DAILY_THEMES = [
+            "Pekerjaan & Kantor",
+            "Belanja & Kuliner",
+            "Keluarga & Rumah",
+            "Hangout & Teman",
+            "Rencana Liburan",
+            "Masalah & Perasaan Harian"
+        ];
+
+        // State Management (In-Memory)
+        let sessionHistory = []; // Stores past generated quizzes & used sentence keys
+        let usedQuestionSignatures = new Set();
+        let lastRotationIndex = -1;
+        let currentQuizData = null;
+        let userAnswers = {}; // questionIndex -> selectedLetter ('A'|'B'|'C'|'D')
+        let sfxAndVibrationEnabled = true;
+        let audioCtx = null;
+
+        // Vocabulary Bank State: stores all vocabulary encountered across completed/active quizzes
+        let learnedVocabMap = new Map(); // key: lowercase word -> vocab object
+        let currentVocabFilter = "ALL";
+        let blindMemorizeMode = false; // When true, hides Indonesian meaning until clicked
+
+        // Curated Beginner Vocabulary Dictionary covering all local questions & common daily words
+        const VOCAB_MASTER_DICTIONARY = [
+            // Simple Present & Daily Routines
+            {
+                matchKeys: ["boss", "meeting", "drink", "drinks"],
+                word: "Drink → Drinks",
+                phonetic: "/drɪŋk/",
+                partOfSpeech: "Verb (Kata Kerja)",
+                meaning: "Minum",
+                grammarNote: "Tambahkan -s (drinks) jika subjeknya tunggal (He, She, My boss) pada rutinitas.",
+                example: "My boss always drinks coffee."
+            },
+            {
+                matchKeys: ["meeting", "morning meeting"],
+                word: "Morning meeting",
+                phonetic: "/ˈmɔː.nɪŋ ˈmiː.tɪŋ/",
+                partOfSpeech: "Noun (Kata Benda)",
+                meaning: "Rapat pagi",
+                grammarNote: "Kosakata umum di kantor untuk pertemuan tim di pagi hari.",
+                example: "Before the morning meeting."
+            },
+            {
+                matchKeys: ["weekday", "weekday nights", "watch"],
+                word: "Weekday nights",
+                phonetic: "/ˈwiːk.deɪ naɪts/",
+                partOfSpeech: "Time Signal (Waktu)",
+                meaning: "Malam hari kerja (Senin–Jumat)",
+                grammarNote: "Lawan katanya adalah 'weekend' (akhir pekan Sabtu–Minggu).",
+                example: "We do not watch TV on weekday nights."
+            },
+            {
+                matchKeys: ["know", "knows", "answer"],
+                word: "Know → Knows",
+                phonetic: "/nəʊ/",
+                partOfSpeech: "Stative Verb (Kata Kerja Keadaan)",
+                meaning: "Tahu / Mengetahui",
+                grammarNote: "Kata 'know' tidak boleh memakai -ing (tidak boleh 'is knowing').",
+                example: "She knows the answer."
+            },
+            {
+                matchKeys: ["cook", "cooks", "breakfast"],
+                word: "Cook breakfast",
+                phonetic: "/kʊk ˈbrek.fəst/",
+                partOfSpeech: "Phrase (Aktivitas Harian)",
+                meaning: "Memasak sarapan",
+                grammarNote: "Untuk sarapan/makan siang/malam, tidak perlu kata 'the' (langsung 'cook breakfast').",
+                example: "My mother cooks breakfast every morning."
+            },
+            {
+                matchKeys: ["bakery", "open", "sundays"],
+                word: "Bakery",
+                phonetic: "/ˈbeɪ.kər.i/",
+                partOfSpeech: "Noun (Tempat)",
+                meaning: "Toko roti",
+                grammarNote: "Subjek tunggal (This bakery = It), sehingga kalimat negatifnya memakai 'does not'.",
+                example: "This bakery does not open on Sundays."
+            },
+            {
+                matchKeys: ["newspaper", "reads"],
+                word: "Read the newspaper",
+                phonetic: "/riːd ðə ˈnjuːzˌpeɪ.pər/",
+                partOfSpeech: "Phrase (Rutinitas)",
+                meaning: "Membaca koran",
+                grammarNote: "Dipasangkan dengan 'every morning' karena merupakan kebiasaan rutin.",
+                example: "My father reads the newspaper every morning."
+            },
+            {
+                matchKeys: ["spicy", "spicy food"],
+                word: "Spicy food",
+                phonetic: "/ˈspaɪ.si fuːd/",
+                partOfSpeech: "Noun Phrase (Kuliner)",
+                meaning: "Makanan pedas",
+                grammarNote: "Gunakan 'Do you like...?' untuk menanyakan kesukaan.",
+                example: "Do you like spicy food?"
+            },
+            {
+                matchKeys: ["understand", "rule"],
+                word: "Understand",
+                phonetic: "/ˌʌn.dəˈstænd/",
+                partOfSpeech: "Verb (Kata Kerja)",
+                meaning: "Mengerti / Memahami",
+                grammarNote: "Setelah 'doesn't', kata kerja kembali ke bentuk dasar murni tanpa -s.",
+                example: "He doesn't understand the new rule."
+            },
+            {
+                matchKeys: ["busy", "office"],
+                word: "Very busy",
+                phonetic: "/ˈver.i ˈbɪz.i/",
+                partOfSpeech: "Adjective (Kata Sifat)",
+                meaning: "Sangat sibuk",
+                grammarNote: "Karena kata sifat (bukan kata kerja), wajib memakai To-Be (am/is/are).",
+                example: "They are very busy at the office today."
+            },
+
+            // Present Continuous
+            {
+                matchKeys: ["cashier", "counting", "items"],
+                word: "Count → Counting",
+                phonetic: "/kaʊnt/",
+                partOfSpeech: "Verb-ing (Sedang Berlangsung)",
+                meaning: "Menghitung",
+                grammarNote: "Gunakan 'is/am/are + counting' saat aktivitas sedang terjadi sekarang.",
+                example: "The cashier is counting our food items."
+            },
+            {
+                matchKeys: ["quiet", "sleeping", "bedroom"],
+                word: "Please be quiet",
+                phonetic: "/pliːz bi ˈkwaɪ.ət/",
+                partOfSpeech: "Daily Expression",
+                meaning: "Tolong tenang / jangan berisik",
+                grammarNote: "Penanda bahwa ada sesuatu yang sedang berlangsung saat ini.",
+                example: "Please be quiet, the baby is sleeping."
+            },
+            {
+                matchKeys: ["standing", "outside", "alone"],
+                word: "Stand outside alone",
+                phonetic: "/stænd ˌaʊtˈsaɪd əˈləʊn/",
+                partOfSpeech: "Phrase (Situasi)",
+                meaning: "Berdiri di luar sendirian",
+                grammarNote: "Dalam kalimat tanya sekarang: 'Why are you standing...?'",
+                example: "Why are you standing outside the cafe alone?"
+            },
+            {
+                matchKeys: ["waiting", "bus", "right now"],
+                word: "Wait for the bus",
+                phonetic: "/weɪt fɔːr ðə bʌs/",
+                partOfSpeech: "Phrase (Transportasi)",
+                meaning: "Menunggu bus",
+                grammarNote: "Kata 'wait' selalu berpasangan dengan preposisi 'for' jika ada objeknya.",
+                example: "We are waiting for the bus right now."
+            },
+            {
+                matchKeys: ["working", "report"],
+                word: "Work on a report",
+                phonetic: "/wɜːk ɒn ə rɪˈpɔːt/",
+                partOfSpeech: "Phrase (Pekerjaan)",
+                meaning: "Mengerjakan laporan",
+                grammarNote: "'Work on' berarti fokus menggarap suatu tugas/laporan.",
+                example: "Are you working on that report now?"
+            },
+            {
+                matchKeys: ["technician", "fixing", "printer", "at the moment"],
+                word: "Fix → Is fixing",
+                phonetic: "/fɪks/",
+                partOfSpeech: "Verb (Kata Kerja)",
+                meaning: "Memperbaiki / Membetulkan",
+                grammarNote: "'At the moment' artinya sama dengan 'right now' (saat ini).",
+                example: "The technician is fixing the office printer."
+            },
+            {
+                matchKeys: ["paying", "cashier"],
+                word: "Pay → Paying",
+                phonetic: "/peɪ/",
+                partOfSpeech: "Verb (Transaksi)",
+                meaning: "Membayar",
+                grammarNote: "Jangan lupa To-Be 'am' setelah subjek 'I' (I am paying).",
+                example: "I am paying at the cashier now."
+            },
+            {
+                matchKeys: ["children", "playing", "park"],
+                word: "Children",
+                phonetic: "/ˈtʃɪl.drən/",
+                partOfSpeech: "Plural Noun (Jamak)",
+                meaning: "Anak-anak (banyak)",
+                grammarNote: "Bentuk tunggalnya 'child', bentuk jamaknya 'children' sehingga wajib pakai 'are'.",
+                example: "The children are playing in the park."
+            },
+
+            // Simple Past
+            {
+                matchKeys: ["bought", "pair of shoes", "shoes"],
+                word: "Buy → Bought (Verb 2)",
+                phonetic: "/baɪ/ → /bɔːt/",
+                partOfSpeech: "Irregular Verb (Lampau)",
+                meaning: "Membeli (Masa Lampau)",
+                grammarNote: "Kata kerja tidak beraturan: jangan tulis 'buyed', tapi 'bought'.",
+                example: "I bought a new pair of shoes last night."
+            },
+            {
+                matchKeys: ["send", "sent", "email", "yesterday afternoon"],
+                word: "Send → Sent (Verb 2)",
+                phonetic: "/send/ → /sent/",
+                partOfSpeech: "Irregular Verb",
+                meaning: "Mengirim",
+                grammarNote: "Jika ada 'did not', gunakan kembali Verb 1 ('did not send').",
+                example: "They did not send the email yesterday."
+            },
+            {
+                matchKeys: ["tired", "long trip"],
+                word: "Long trip",
+                phonetic: "/lɒŋ trɪp/",
+                partOfSpeech: "Noun Phrase (Perjalanan)",
+                meaning: "Perjalanan jauh / panjang",
+                grammarNote: "Pasangan kata sifat 'tired' di masa lalu adalah 'was/were'.",
+                example: "She was very tired after the long trip."
+            },
+            {
+                matchKeys: ["forgot", "forget", "umbrella"],
+                word: "Forget → Forgot (Verb 2)",
+                phonetic: "/fəˈɡet/ → /fəˈɡɒt/",
+                partOfSpeech: "Irregular Verb (Lampau)",
+                meaning: "Lupa",
+                grammarNote: "Kejadian tadi pagi ('this morning' yang sudah lewat) memakai Verb 2 'forgot'.",
+                example: "I forgot to bring my umbrella this morning."
+            },
+            {
+                matchKeys: ["beach", "last week", "went"],
+                word: "Go → Went (Verb 2)",
+                phonetic: "/ɡəʊ/ → /went/",
+                partOfSpeech: "Irregular Verb",
+                meaning: "Pergi",
+                grammarNote: "Kalimat positif lampau memakai 'went', kalimat negatif memakai 'did not go'.",
+                example: "They did not go to the beach last week."
+            },
+            {
+                matchKeys: ["ate", "delicious", "seafood"],
+                word: "Eat → Ate (Verb 2)",
+                phonetic: "/iːt/ → /eɪt/",
+                partOfSpeech: "Irregular Verb (Lampau)",
+                meaning: "Makan (Masa Lampau)",
+                grammarNote: "Verb 1: Eat, Verb 2: Ate. Dipakai untuk cerita kuliner yang sudah lewat.",
+                example: "We ate delicious seafood last Saturday."
+            },
+            {
+                matchKeys: ["finish", "meeting finish"],
+                word: "Finish",
+                phonetic: "/ˈfɪn.ɪʃ/",
+                partOfSpeech: "Verb (Kata Kerja)",
+                meaning: "Selesai / Menyelesaikan",
+                grammarNote: "Dalam pertanyaan lampau dengan 'did', gunakan Verb 1 ('did the meeting finish?').",
+                example: "What time did the meeting finish yesterday?"
+            },
+            {
+                matchKeys: ["came", "late", "class"],
+                word: "Come → Came (Verb 2)",
+                phonetic: "/kʌm/ → /keɪm/",
+                partOfSpeech: "Irregular Verb (Lampau)",
+                meaning: "Datang",
+                grammarNote: "Jangan gabungkan 'was' dengan 'came'. Cukup langsung 'I came late'.",
+                example: "I came late to class yesterday."
+            },
+            {
+                matchKeys: ["weather", "cold", "last night"],
+                word: "The weather",
+                phonetic: "/ðə ˈweð.ər/",
+                partOfSpeech: "Noun (Cuaca)",
+                meaning: "Cuaca",
+                grammarNote: "Cuaca dihitung tunggal (It), sehingga di masa lampau memakai 'was'.",
+                example: "The weather was very cold last night."
+            },
+
+            // Simple Future
+            {
+                matchKeys: ["visit", "grandmother", "next weekend"],
+                word: "Be going to visit",
+                phonetic: "/ˈɡəʊ.ɪŋ tuː ˈvɪz.ɪt/",
+                partOfSpeech: "Future Plan (Rencana)",
+                meaning: "Berencana mengunjungi",
+                grammarNote: "Gunakan 'am/is/are going to + Verb 1' untuk rencana yang sudah diniatkan.",
+                example: "We are going to visit our grandmother."
+            },
+            {
+                matchKeys: ["heavy", "carry"],
+                word: "Carry",
+                phonetic: "/ˈkær.i/",
+                partOfSpeech: "Verb (Kata Kerja)",
+                meaning: "Membawa / Mengangkat",
+                grammarNote: "Saat spontan menawarkan bantuan, gunakan 'I will help you carry it'.",
+                example: "I will help you carry it."
+            },
+            {
+                matchKeys: ["schedule", "share", "tomorrow morning"],
+                word: "Schedule",
+                phonetic: "/ˈʃed.juːl/ • /ˈskedʒ.uːl/",
+                partOfSpeech: "Noun (Kata Benda)",
+                meaning: "Jadwal",
+                grammarNote: "Setelah 'will', kata kerja selalu kembali ke bentuk dasar ('will share').",
+                example: "The manager will share the new schedule."
+            },
+            {
+                matchKeys: ["call you back", "five minutes"],
+                word: "Call you back",
+                phonetic: "/kɔːl juː bæk/",
+                partOfSpeech: "Daily Expression",
+                meaning: "Meneleponmu kembali",
+                grammarNote: "Ungkapan sangat populer saat sedang sibuk dan berjanji menelepon balik.",
+                example: "I will call you back in five minutes."
+            },
+            {
+                matchKeys: ["move", "new house", "next month"],
+                word: "Move to a new house",
+                phonetic: "/muːv tuː ə njuː haʊs/",
+                partOfSpeech: "Phrase (Keluarga)",
+                meaning: "Pindah ke rumah baru",
+                grammarNote: "Gunakan 'are going to move' karena pindah rumah adalah rencana matang.",
+                example: "We are going to move to a new house."
+            },
+            {
+                matchKeys: ["announce", "winner", "tonight"],
+                word: "Announce",
+                phonetic: "/əˈnaʊns/",
+                partOfSpeech: "Verb (Kata Kerja)",
+                meaning: "Mengumumkan",
+                grammarNote: "Dipakai dengan 'will' untuk kejadian nanti malam ('tonight').",
+                example: "They will announce the ticket winner tonight."
+            },
+            {
+                matchKeys: ["leave for", "airport"],
+                word: "Leave for",
+                phonetic: "/liːv fɔːr/",
+                partOfSpeech: "Verb Phrase (Perjalanan)",
+                meaning: "Berangkat menuju",
+                grammarNote: "'Leave for the airport' artinya berangkat menuju bandara.",
+                example: "When will you leave for the airport?"
+            },
+
+            // Modal Auxiliaries
+            {
+                matchKeys: ["pale", "should", "doctor"],
+                word: "Look pale",
+                phonetic: "/lʊk peɪl/",
+                partOfSpeech: "Phrase (Kondisi)",
+                meaning: "Terlihat pucat",
+                grammarNote: "Gunakan modal 'should + Verb 1' untuk memberi saran yang penuh perhatian.",
+                example: "You look pale. You should see a doctor."
+            },
+            {
+                matchKeys: ["visitors", "wear", "building", "must"],
+                word: "Wear an ID card",
+                phonetic: "/weər æn aɪˈdiː kɑːd/",
+                partOfSpeech: "Phrase (Aturan Kantor)",
+                meaning: "Memakai kartu identitas",
+                grammarNote: "Gunakan 'must + Verb 1' untuk aturan wajib.",
+                example: "All visitors must wear an ID card."
+            },
+            {
+                matchKeys: ["credit card", "excuse me"],
+                word: "Pay with a credit card",
+                phonetic: "/peɪ wɪð ə ˈkred.ɪt kɑːd/",
+                partOfSpeech: "Phrase (Belanja)",
+                meaning: "Membayar dengan kartu kredit",
+                grammarNote: "Gunakan preposisi 'with' untuk alat pembayaran seperti kartu.",
+                example: "Can I pay with a credit card here?"
+            },
+            {
+                matchKeys: ["must not", "park", "bike"],
+                word: "Must not park",
+                phonetic: "/mʌst nɒt pɑːk/",
+                partOfSpeech: "Modal (Larangan)",
+                meaning: "Dilarang parkir",
+                grammarNote: "'Must not' menyatakan larangan keras dan langsung diikuti Verb 1.",
+                example: "You must not park your bike here."
+            },
+            {
+                matchKeys: ["might rain", "this afternoon"],
+                word: "Might rain",
+                phonetic: "/maɪt reɪn/",
+                partOfSpeech: "Modal (Kemungkinan)",
+                meaning: "Mungkin akan turun hujan",
+                grammarNote: "'Might + Verb 1' dipakai saat sesuatu belum pasti tapi mungkin terjadi.",
+                example: "Take an umbrella because it might rain."
+            },
+            {
+                matchKeys: ["bring me", "menu", "could you"],
+                word: "Could you bring me...?",
+                phonetic: "/kʊd juː brɪŋ miː/",
+                partOfSpeech: "Polite Request (Sopan)",
+                meaning: "Bisakah Anda membawakan saya...?",
+                grammarNote: "'Could you...' lebih sopan dan halus dibandingkan 'Can you...'.",
+                example: "Could you bring me the menu, please?"
+            },
+            {
+                matchKeys: ["charger", "need it"],
+                word: "Use my charger",
+                phonetic: "/juːz maɪ ˈtʃɑː.dʒər/",
+                partOfSpeech: "Daily Phrase",
+                meaning: "Memakai casan (charger) saya",
+                grammarNote: "Setelah modal 'can', langsung gunakan Verb 1 'use'.",
+                example: "You can use my charger if you need it."
+            }
+        ];
+
+        function extractVocabForQuestion(q) {
+            // 1. If Gemini AI provided structured vocabItems, normalize and use them
+            if (Array.isArray(q.vocabItems) && q.vocabItems.length > 0) {
+                return q.vocabItems.map(item => ({
+                    word: item.word || "",
+                    phonetic: item.phonetic || "",
+                    partOfSpeech: item.partOfSpeech || "Kosakata Harian",
+                    meaning: item.meaning || "",
+                    grammarNote: item.grammarNote || q.explanation,
+                    example: q.promptText.includes("___")
+                        ? q.promptText.replace("___", q.correctText)
+                        : q.correctText,
+                    grammarShort: q.grammarShort
+                })).filter(v => v.word && v.meaning);
+            }
+
+            // 2. Otherwise match against VOCAB_MASTER_DICTIONARY based on promptText & correctText
+            const haystack = `${q.promptText} ${q.correctText} ${(q.options || []).map(o => o.text || o).join(" ")}`.toLowerCase();
+            const matched = [];
+
+            for (const entry of VOCAB_MASTER_DICTIONARY) {
+                const isHit = entry.matchKeys.some(k => haystack.includes(k.toLowerCase()));
+                if (isHit) {
+                    matched.push({
+                        ...entry,
+                        grammarShort: q.grammarShort
+                    });
+                }
+                if (matched.length >= 2) break;
+            }
+
+            // Fallback if a custom sentence didn't hit a specific key
+            if (matched.length === 0) {
+                matched.push({
+                    word: q.correctText,
+                    phonetic: "",
+                    partOfSpeech: q.grammarShort,
+                    meaning: q.contextHint.replace(/^Konteks:\s*/i, ""),
+                    grammarNote: q.explanation,
+                    example: q.promptText.replace("___", q.correctText),
+                    grammarShort: q.grammarShort
+                });
+            }
+
+            return matched;
+        }
+
+        function registerQuizVocabToBank(quizData) {
+            if (!quizData || !Array.isArray(quizData.questions)) return;
+            quizData.questions.forEach(q => {
+                const vocabList = q.vocabList || extractVocabForQuestion(q);
+                q.vocabList = vocabList;
+                vocabList.forEach(v => {
+                    const key = v.word.toLowerCase().trim();
+                    if (!learnedVocabMap.has(key)) {
+                        learnedVocabMap.set(key, {
+                            ...v,
+                            id: key,
+                            memorized: false,
+                            quizId: quizData.id,
+                            addedAt: quizData.timestamp
+                        });
+                    }
+                });
+            });
+            updateVocabBadgesAndCounters();
+            renderVocabBankView();
+        }
+
+        function toggleVocabMemorized(vocabKey, event) {
+            if (event) event.stopPropagation();
+            const item = learnedVocabMap.get(vocabKey);
+            if (!item) return;
+            item.memorized = !item.memorized;
+            if (item.memorized) {
+                playFeedbackSound("correct");
+                triggerHapticVibration([30, 40, 50]);
+                showToast(`Yeay! Sayang sudah hafal "${item.word}" 💙`, "success");
+            } else {
+                playFeedbackSound("pop");
+            }
+            updateVocabBadgesAndCounters();
+            renderVocabBankView();
+            renderQuizSummaryVocab();
+        }
+
+        function toggleBlindMemorizeMode() {
+            blindMemorizeMode = !blindMemorizeMode;
+            playFeedbackSound("pop");
+            document.querySelectorAll(".blind-mode-label").forEach(el => {
+                el.textContent = blindMemorizeMode ? "Mode Tes Hafalan: Aktif ✨" : "Mode Tes Hafalan: Mati";
+            });
+            renderVocabBankView();
+            renderQuizSummaryVocab();
+            showToast(
+                blindMemorizeMode
+                    ? "Mode Tes Hafalan aktif! Klik kartu untuk mengintip artinya 💙"
+                    : "Mode Tes Hafalan dimatikan, semua arti ditampilkan.",
+                "info"
+            );
+        }
+
+        function filterVocabBank(filterType) {
+            currentVocabFilter = filterType;
+            ["ALL", "UNMEMORIZED", "MEMORIZED"].forEach(f => {
+                const btn = document.getElementById(`vocabFilter-${f}`);
+                if (!btn) return;
+                if (f === filterType) {
+                    btn.className = "px-3.5 py-2 rounded-xl bg-sky-500 text-white text-xs font-bold transition-all shadow";
+                } else {
+                    btn.className = "px-3.5 py-2 rounded-xl bg-[#07182c] hover:bg-sky-950 text-sky-200 border border-sky-800/60 text-xs font-semibold transition-all";
+                }
+            });
+            renderVocabBankView();
+        }
+
+        function updateVocabBadgesAndCounters() {
+            const allItems = Array.from(learnedVocabMap.values());
+            const memorizedCount = allItems.filter(i => i.memorized).length;
+            const unmemorizedCount = allItems.length - memorizedCount;
+
+            const badge = document.getElementById("vocabBadge");
+            if (badge) badge.textContent = allItems.length;
+
+            const countAll = document.getElementById("countAllVocab");
+            const countUnmem = document.getElementById("countUnmemorizedVocab");
+            const countMem = document.getElementById("countMemorizedVocab");
+
+            if (countAll) countAll.textContent = allItems.length;
+            if (countUnmem) countUnmem.textContent = unmemorizedCount;
+            if (countMem) countMem.textContent = memorizedCount;
+        }
+
+        function createVocabCardHTML(v) {
+            const stored = learnedVocabMap.get(v.word.toLowerCase().trim()) || v;
+            const isMemorized = !!stored.memorized;
+            const escapedWord = v.word.replace(/→/g, "to").replace(/\(.*?\)/g, "").replace(/'/g, "\\'");
+            const safeKey = v.word.toLowerCase().trim().replace(/'/g, "\\'");
+
+            return `
+                <div class="p-4 rounded-2xl bg-[#07182c]/95 border ${
+                    isMemorized ? "border-cyan-400/60 bg-cyan-950/25" : "border-sky-800/70 hover:border-sky-500/50"
+                } flex flex-col justify-between gap-3 transition-all">
+                    <div>
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                                    ${v.partOfSpeech || v.grammarShort || "Daily Vocab"}
+                                </span>
+                                <h5 class="text-base font-extrabold text-white mt-1.5 flex items-center gap-2">
+                                    <span>${v.word}</span>
+                                    ${v.phonetic ? `<span class="text-xs font-mono font-normal text-sky-400/80">${v.phonetic}</span>` : ""}
+                                </h5>
+                            </div>
+                            <button
+                                onclick="speakEnglish('${escapedWord}', event)"
+                                title="Dengarkan cara baca"
+                                class="w-8 h-8 rounded-xl bg-sky-950 hover:bg-sky-800 text-cyan-300 border border-sky-700/60 flex items-center justify-center shrink-0 transition-colors"
+                            >
+                                <i class="ph-bold ph-speaker-high text-sm"></i>
+                            </button>
+                        </div>
+
+                        <!-- Meaning Box (Supports Blind Memorization Toggle) -->
+                        <div
+                            onclick="this.classList.toggle('blur-none'); this.querySelector('.meaning-content')?.classList.toggle('blur-sm');"
+                            class="mt-2.5 p-2.5 rounded-xl bg-[#0b233f] border border-sky-800/70 cursor-pointer select-none"
+                            title="${blindMemorizeMode ? "Klik untuk melihat/menyembunyikan arti" : ""}"
+                        >
+                            <div class="text-[10px] uppercase tracking-wider text-sky-400/80 font-semibold flex items-center justify-between">
+                                <span>Arti Bahasa Indonesia</span>
+                                ${blindMemorizeMode ? `<span class="text-cyan-300"><i class="ph-bold ph-hand-tap"></i> Klik Intip</span>` : ""}
+                            </div>
+                            <div class="meaning-content text-sm font-bold text-cyan-200 mt-0.5 transition-all ${blindMemorizeMode ? "blur-sm" : ""}">
+                                ${v.meaning}
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-sky-200/85 mt-2.5 leading-relaxed">
+                            <strong class="text-sky-300">Catatan:</strong> ${v.grammarNote}
+                        </p>
+                    </div>
+
+                    <div class="pt-2.5 border-t border-sky-900/60 flex items-center justify-between gap-2">
+                        <span class="text-[11px] text-sky-300/75 italic truncate" title="${v.example || ""}">
+                            "${v.example || ""}"
+                        </span>
+                        <button
+                            onclick="toggleVocabMemorized('${safeKey}', event)"
+                            class="px-2.5 py-1 rounded-lg text-xs font-bold shrink-0 flex items-center gap-1 transition-all ${
+                                isMemorized
+                                    ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/50"
+                                    : "bg-sky-950 hover:bg-sky-900 text-sky-300 border border-sky-800"
+                            }"
+                        >
+                            <i class="ph-fill ${isMemorized ? "ph-check-circle text-cyan-300" : "ph-heart"}"></i>
+                            <span>${isMemorized ? "Sudah Hafal 💙" : "Tandai Hafal"}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQuizSummaryVocab() {
+            const grid = document.getElementById("quizSummaryVocabGrid");
+            if (!grid || !currentQuizData) return;
+
+            const currentQuizVocabs = [];
+            const seenInQuiz = new Set();
+
+            currentQuizData.questions.forEach(q => {
+                const list = q.vocabList || extractVocabForQuestion(q);
+                list.forEach(v => {
+                    const key = v.word.toLowerCase().trim();
+                    if (!seenInQuiz.has(key)) {
+                        seenInQuiz.add(key);
+                        currentQuizVocabs.push(v);
+                    }
+                });
+            });
+
+            grid.innerHTML = currentQuizVocabs.map(v => createVocabCardHTML(v)).join("");
+        }
+
+        function renderVocabBankView() {
+            const container = document.getElementById("vocabBankContainer");
+            if (!container) return;
+
+            let items = Array.from(learnedVocabMap.values());
+            if (currentVocabFilter === "MEMORIZED") {
+                items = items.filter(i => i.memorized);
+            } else if (currentVocabFilter === "UNMEMORIZED") {
+                items = items.filter(i => !i.memorized);
+            }
+
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-10 text-sky-300/70 text-sm">
+                        Belum ada kosakata pada kategori ini. Yuk kerjakan kuisnya dulu Sayang! 💙
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(v => createVocabCardHTML(v)).join("");
+        }
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === "suspended") {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function toggleSfxAndVibration() {
+            sfxAndVibrationEnabled = !sfxAndVibrationEnabled;
+            const icon = document.getElementById("sfxIcon");
+            if (sfxAndVibrationEnabled) {
+                icon.className = "ph-bold ph-speaker-high text-lg text-cyan-300";
+                playFeedbackSound("pop");
+                showToast("Efek suara & getaran diaktifkan 💙", "info");
+            } else {
+                icon.className = "ph-bold ph-speaker-slash text-lg text-sky-400/50";
+                showToast("Efek suara & getaran dimatikan", "info");
+            }
+        }
+
+        function triggerHapticVibration(pattern) {
+            if (!sfxAndVibrationEnabled) return;
+            try {
+                if ("vibrate" in navigator) {
+                    navigator.vibrate(pattern);
+                }
+            } catch (e) {
+                // Ignore if blocked by browser policy
+            }
+        }
+
+        function playFeedbackSound(type) {
+            if (!sfxAndVibrationEnabled) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+
+            if (type === "correct") {
+                // Cheerful bright sky-chime (C5 -> E5 -> G5 -> C6)
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "triangle";
+                    osc.frequency.setValueAtTime(freq, now + i * 0.065);
+
+                    gain.gain.setValueAtTime(0.001, now + i * 0.065);
+                    gain.gain.exponentialRampToValueAtTime(0.18, now + i * 0.065 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.065 + 0.28);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + i * 0.065);
+                    osc.stop(now + i * 0.065 + 0.3);
+                });
+            } else if (type === "wrong") {
+                // Gentle double low "boop-boop" + vibration feel so it's playful and not harsh
+                const notes = [240, 175];
+                notes.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "sawtooth";
+                    osc.frequency.setValueAtTime(freq, now + i * 0.13);
+                    osc.frequency.linearRampToValueAtTime(freq - 25, now + i * 0.13 + 0.12);
+
+                    gain.gain.setValueAtTime(0.001, now + i * 0.13);
+                    gain.gain.exponentialRampToValueAtTime(0.12, now + i * 0.13 + 0.015);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.13 + 0.16);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + i * 0.13);
+                    osc.stop(now + i * 0.13 + 0.18);
+                });
+            } else if (type === "complete") {
+                // Celebratory fanfare chord progression
+                const fanfare = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                fanfare.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(freq, now + i * 0.08);
+
+                    gain.gain.setValueAtTime(0.001, now + i * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.2, now + i * 0.08 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.45);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + i * 0.08);
+                    osc.stop(now + i * 0.08 + 0.48);
+                });
+            } else if (type === "pop") {
+                // Soft bubble tap sound
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = "sine";
+                osc.frequency.setValueAtTime(420, now);
+                osc.frequency.exponentialRampToValueAtTime(760, now + 0.07);
+
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.09);
+            }
+        }
+
+        function spawnCorrectParticles(targetEl) {
+            if (!targetEl) return;
+            const rect = targetEl.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const emojis = ["💙", "✨", "🌊", "🌟", "💎", "💙"];
+
+            emojis.forEach((emoji, idx) => {
+                const span = document.createElement("span");
+                span.className = "feedback-particle";
+                span.textContent = emoji;
+                const angle = (idx / emojis.length) * Math.PI * 2;
+                const distance = 45 + Math.random() * 35;
+                span.style.left = `${centerX}px`;
+                span.style.top = `${centerY}px`;
+                span.style.setProperty("--tx", `${Math.cos(angle) * distance}px`);
+                span.style.setProperty("--ty", `${Math.sin(angle) * distance - 25}px`);
+                document.body.appendChild(span);
+                setTimeout(() => span.remove(), 900);
+            });
+        }
+
+        // Rich Beginner-Friendly Local Pool (5-10 words, high-frequency vocab, tricky Indonesian mistakes)
+        const LOCAL_QUESTION_BANK = {
+            FILL_BLANK: {
+                SIMPLE_PRESENT: [
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "My boss always ___ coffee before the morning meeting.",
+                        contextHint: "Konteks: Bos saya selalu minum kopi sebelum rapat pagi.",
+                        options: ["drink", "drinks", "is drinking", "drank"],
+                        correctText: "drinks",
+                        explanation: "Subject tunggal (My boss = He/She) pada Simple Present wajib menggunakan Verb+s (drinks). Opsi lain salah karena tanpa -s atau beda tense."
+                    },
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "We ___ not watch television on weekday nights.",
+                        contextHint: "Konteks: Kami tidak menonton TV pada malam hari kerja.",
+                        options: ["do", "does", "are", "did"],
+                        correctText: "do",
+                        explanation: "Subject 'We' diikuti kata kerja dasar 'watch' membutuhkan auxiliary 'do' untuk kalimat negatif, bukan 'are' atau 'does'."
+                    },
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "She ___ the answer to this easy question now.",
+                        contextHint: "Konteks: Dia tahu jawaban dari pertanyaan mudah ini.",
+                        options: ["know", "knows", "is knowing", "knew"],
+                        correctText: "knows",
+                        explanation: "'Know' adalah stative verb (kata kerja keadaan) yang tidak boleh memakai -ing (is knowing salah). Subject 'She' wajib memakai 'knows'."
+                    }
+                ],
+                PRESENT_CONTINUOUS: [
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "Look! The cashier ___ our food items right now.",
+                        contextHint: "Konteks: Lihat! Kasir sedang menghitung barang makanan kita sekarang.",
+                        options: ["count", "counts", "is counting", "are counting"],
+                        correctText: "is counting",
+                        explanation: "Ada tanda waktu 'Look!' & 'right now'. Subject tunggal (The cashier) wajib memakai 'is + Verb-ing' (is counting)."
+                    },
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "Please be quiet, the baby ___ in the bedroom.",
+                        contextHint: "Konteks: Tolong tenang, bayinya sedang tidur di kamar.",
+                        options: ["sleeps", "is sleeping", "sleeping", "are sleeping"],
+                        correctText: "is sleeping",
+                        explanation: "Kejadian sedang berlangsung saat bicara. Wajib ada to-be 'is' sebelum 'sleeping' (jebakan umum: lupa 'is')."
+                    },
+                    {
+                        theme: "Hangout & Teman",
+                        promptText: "Why ___ you standing outside the cafe alone?",
+                        contextHint: "Konteks: Kenapa kamu sedang berdiri sendirian di luar kafe?",
+                        options: ["do", "are", "is", "were"],
+                        correctText: "are",
+                        explanation: "Karena diikuti Verb-ing ('standing') dan berlangsung sekarang, pasangan subject 'you' adalah to-be 'are', bukan 'do'."
+                    }
+                ],
+                SIMPLE_PAST: [
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "I ___ a new pair of shoes last night.",
+                        contextHint: "Konteks: Aku membeli sepasang sepatu baru tadi malam.",
+                        options: ["buy", "buyed", "bought", "was bought"],
+                        correctText: "bought",
+                        explanation: "Keterangan waktu 'last night' menunjukkan masa lampau. Bentuk Verb 2 irregular dari 'buy' adalah 'bought' (bukan buyed/was bought)."
+                    },
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "They did not ___ the email yesterday afternoon.",
+                        contextHint: "Konteks: Mereka tidak mengirim email tersebut kemarin sore.",
+                        options: ["send", "sent", "sending", "sends"],
+                        correctText: "send",
+                        explanation: "Setelah 'did not', kata kerja WAJIB kembali ke bentuk dasar/Verb 1 ('send'), tidak boleh menggunakan Verb 2 ('sent')."
+                    },
+                    {
+                        theme: "Hangout & Teman",
+                        promptText: "She ___ very tired after the long trip yesterday.",
+                        contextHint: "Konteks: Dia sangat lelah setelah perjalanan jauh kemarin.",
+                        options: ["was", "were", "did", "is"],
+                        correctText: "was",
+                        explanation: "'Tired' adalah kata sifat (adjective), sehingga di masa lampau ('yesterday') untuk subject 'She' wajib menggunakan to-be 'was'."
+                    }
+                ],
+                SIMPLE_FUTURE: [
+                    {
+                        theme: "Rencana Liburan",
+                        promptText: "We are ___ visit our grandmother next weekend.",
+                        contextHint: "Konteks: Kami berencana mengunjungi nenek akhir pekan depan.",
+                        options: ["going to", "will", "go to", "will be"],
+                        correctText: "going to",
+                        explanation: "Sudah ada to-be 'are' di depan, sehingga harus dilengkapi 'going to' (are going to visit). 'Are will' adalah kesalahan fatal."
+                    },
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "Your bag looks heavy. I ___ help you carry it.",
+                        contextHint: "Konteks: Tasmu terlihat berat. Aku akan membantumu membawanya.",
+                        options: ["will", "am going to", "will to", "going to"],
+                        correctText: "will",
+                        explanation: "Keputusan spontan yang dibuat saat itu juga wajib menggunakan 'will + Verb 1' (tanpa 'to')."
+                    },
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "The manager will ___ the new schedule tomorrow morning.",
+                        contextHint: "Konteks: Manajer akan membagikan jadwal baru besok pagi.",
+                        options: ["share", "shares", "sharing", "to share"],
+                        correctText: "share",
+                        explanation: "Setelah kata 'will', kata kerja wajib berbentuk dasar murni (Verb 1 'share') tanpa tambahan -s, -ing, atau 'to'."
+                    }
+                ],
+                MODAL_AUXILIARIES: [
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "You look pale. You ___ see a doctor today.",
+                        contextHint: "Konteks: Kamu terlihat pucat. Kamu sebaiknya ke dokter hari ini.",
+                        options: ["should", "should to", "can to", "would"],
+                        correctText: "should",
+                        explanation: "Untuk memberi saran (advice) digunakan modal 'should' dan langsung diikuti Verb 1 tanpa tambahan 'to'."
+                    },
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "All visitors ___ wear an ID card inside this building.",
+                        contextHint: "Konteks: Semua pengunjung wajib memakai kartu identitas di gedung ini.",
+                        options: ["must", "may", "could", "might"],
+                        correctText: "must",
+                        explanation: "Aturan wajib (obligation) menggunakan modal 'must'. 'May/might/could' hanya menunjukkan kemungkinan atau izin."
+                    },
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "Excuse me, ___ I pay with a credit card here?",
+                        contextHint: "Konteks: Permisi, bisakah saya membayar pakai kartu kredit di sini?",
+                        options: ["can", "must", "should", "would to"],
+                        correctText: "can",
+                        explanation: "Meminta izin atau menanyakan kemampuan pembayaran secara natural menggunakan 'Can I + Verb 1'."
+                    }
+                ]
+            },
+
+            TRANSLATION: {
+                SIMPLE_PRESENT: [
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "Kamu ingin bilang: \"Ibu saya memasak sarapan setiap pagi.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "My mother cooks breakfast every morning.",
+                            "My mother cook breakfast every morning.",
+                            "My mother is cooking breakfast every morning.",
+                            "My mother cooked breakfast every morning."
+                        ],
+                        correctText: "My mother cooks breakfast every morning.",
+                        explanation: "Rutinitas ('every morning') dengan subject tunggal ('My mother') wajib memakai Verb+s ('cooks')."
+                    },
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "Kamu ingin bilang: \"Toko roti ini tidak buka pada hari Minggu.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "This bakery does not open on Sundays.",
+                            "This bakery do not open on Sundays.",
+                            "This bakery is not open on Sundays.",
+                            "This bakery does not opens on Sundays."
+                        ],
+                        correctText: "This bakery does not open on Sundays.",
+                        explanation: "'Open' sebagai kata kerja aksi untuk jadwal rutin subject tunggal memakai 'does not + Verb 1 (open)'."
+                    }
+                ],
+                PRESENT_CONTINUOUS: [
+                    {
+                        theme: "Hangout & Teman",
+                        promptText: "Kamu ingin bilang: \"Kami sedang menunggu bus sekarang.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "We are waiting for the bus right now.",
+                            "We waiting for the bus right now.",
+                            "We are wait for the bus right now.",
+                            "We wait for the bus right now."
+                        ],
+                        correctText: "We are waiting for the bus right now.",
+                        explanation: "Kejadian sedang berlangsung ('right now') wajib menggunakan rumus 'Subject + are + Verb-ing' (We are waiting)."
+                    },
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "Kamu ingin bilang: \"Apakah kamu sedang mengerjakan laporan itu sekarang?\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "Are you working on that report now?",
+                            "Do you working on that report now?",
+                            "Are you work on that report now?",
+                            "You are working on that report now?"
+                        ],
+                        correctText: "Are you working on that report now?",
+                        explanation: "Kalimat tanya Present Continuous memindahkan to-be 'Are' ke depan subject diikuti Verb-ing ('working')."
+                    }
+                ],
+                SIMPLE_PAST: [
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "Kamu ingin bilang: \"Saya lupa membawa payung tadi pagi.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "I forgot to bring my umbrella this morning.",
+                            "I forget to bring my umbrella this morning.",
+                            "I was forgot to bring my umbrella this morning.",
+                            "I did not forgot my umbrella this morning."
+                        ],
+                        correctText: "I forgot to bring my umbrella this morning.",
+                        explanation: "Kejadian tadi pagi sudah lewat, sehingga langsung memakai Verb 2 'forgot' tanpa tambahan to-be 'was'."
+                    },
+                    {
+                        theme: "Rencana Liburan",
+                        promptText: "Kamu ingin bilang: \"Mereka tidak pergi ke pantai minggu lalu.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "They did not go to the beach last week.",
+                            "They did not went to the beach last week.",
+                            "They were not go to the beach last week.",
+                            "They do not go to the beach last week."
+                        ],
+                        correctText: "They did not go to the beach last week.",
+                        explanation: "Kalimat negatif masa lampau memakai 'did not + Verb 1 (go)'. Jangan gunakan 'did not went' atau 'were not go'."
+                    }
+                ],
+                SIMPLE_FUTURE: [
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "Kamu ingin bilang: \"Saya akan menelepon kamu balik lima menit lagi.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "I will call you back in five minutes.",
+                            "I will to call you back in five minutes.",
+                            "I am will call you back in five minutes.",
+                            "I calling you back in five minutes."
+                        ],
+                        correctText: "I will call you back in five minutes.",
+                        explanation: "Janji atau keputusan cepat memakai 'will + Verb 1 (call)' tanpa menyelipkan 'am' atau 'to'."
+                    },
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "Kamu ingin bilang: \"Kami akan pindah ke rumah baru bulan depan.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "We are going to move to a new house next month.",
+                            "We going to move to a new house next month.",
+                            "We are going to moving to a new house next month.",
+                            "We will going to move to a new house next month."
+                        ],
+                        correctText: "We are going to move to a new house next month.",
+                        explanation: "Rencana matang di masa depan memakai 'are going to + Verb 1 (move)'. Jangan lupakan 'are' setelah 'We'."
+                    }
+                ],
+                MODAL_AUXILIARIES: [
+                    {
+                        theme: "Hangout & Teman",
+                        promptText: "Kamu ingin bilang: \"Dia bisa berbicara bahasa Inggris dengan sangat baik.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "She can speak English very well.",
+                            "She cans speak English very well.",
+                            "She can speaks English very well.",
+                            "She can to speak English very well."
+                        ],
+                        correctText: "She can speak English very well.",
+                        explanation: "Modal 'can' tidak pernah ditambah -s, dan kata kerja setelahnya wajib Verb 1 murni ('speak') tanpa -s atau 'to'."
+                    },
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "Kamu ingin bilang: \"Kamu tidak boleh parkir motor di sini.\"",
+                        contextHint: "Pilih terjemahan yang paling akurat:",
+                        options: [
+                            "You must not park your bike here.",
+                            "You do not must park your bike here.",
+                            "You must not to park your bike here.",
+                            "You must not parking your bike here."
+                        ],
+                        correctText: "You must not park your bike here.",
+                        explanation: "Larangan keras menggunakan 'must not + Verb 1 (park)' tanpa bantuan 'do' atau tambahan 'to'."
+                    }
+                ]
+            },
+
+            TIME_SIGNAL: {
+                SIMPLE_PRESENT: [
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "My father reads the newspaper ___ before going to work.",
+                        contextHint: "Perhatikan kata kerja 'reads' (Verb+s).",
+                        options: ["every morning", "yesterday morning", "right now", "tomorrow morning"],
+                        correctText: "every morning",
+                        explanation: "Kata kerja 'reads' (Verb+s) menunjukkan rutinitas berulang pada Simple Present, sehingga cocok dengan 'every morning'."
+                    }
+                ],
+                PRESENT_CONTINUOUS: [
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "The technician is fixing the office printer ___.",
+                        contextHint: "Perhatikan struktur 'is fixing' (is + Verb-ing).",
+                        options: ["at the moment", "every day", "two days ago", "last week"],
+                        correctText: "at the moment",
+                        explanation: "Struktur 'is fixing' menunjukkan aktivitas yang sedang berlangsung saat ini, sehingga tepat dipasangkan dengan 'at the moment'."
+                    }
+                ],
+                SIMPLE_PAST: [
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "We ate delicious seafood at that restaurant ___.",
+                        contextHint: "Perhatikan kata kerja 'ate' (Verb 2 dari eat).",
+                        options: ["last Saturday", "every Saturday", "right now", "next Saturday"],
+                        correctText: "last Saturday",
+                        explanation: "'Ate' adalah Verb 2 (lampau), sehingga wajib dipasangkan dengan penanda waktu masa lalu yaitu 'last Saturday'."
+                    }
+                ],
+                SIMPLE_FUTURE: [
+                    {
+                        theme: "Rencana Liburan",
+                        promptText: "They will announce the ticket winner ___.",
+                        contextHint: "Perhatikan struktur 'will announce' (will + Verb 1).",
+                        options: ["tonight", "yesterday", "last night", "two hours ago"],
+                        correctText: "tonight",
+                        explanation: "Struktur 'will + Verb 1' merujuk pada kejadian yang belum terjadi (masa depan), sehingga 'tonight' adalah pilihan yang tepat."
+                    }
+                ],
+                MODAL_AUXILIARIES: [
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "Take an umbrella because it might rain ___.",
+                        contextHint: "Perhatikan modal 'might rain' (kemungkinan yang akan terjadi).",
+                        options: ["this afternoon", "yesterday afternoon", "two days ago", "last Monday"],
+                        correctText: "this afternoon",
+                        explanation: "Kalimat perintah 'Take an umbrella' dan 'might rain' memprediksi kemungkinan sore nanti ('this afternoon'), bukan masa lampau."
+                    }
+                ]
+            },
+
+            QUESTION_FORM: {
+                SIMPLE_PRESENT: [
+                    {
+                        theme: "Hangout & Teman",
+                        promptText: "Situasi: Kamu ingin bertanya apakah temanmu suka makanan pedas.",
+                        contextHint: "Pilih struktur kalimat tanya yang paling tepat:",
+                        options: [
+                            "Do you like spicy food?",
+                            "Are you like spicy food?",
+                            "Does you like spicy food?",
+                            "Do you likes spicy food?"
+                        ],
+                        correctText: "Do you like spicy food?",
+                        explanation: "'Like' adalah kata kerja (verb), sehingga pertanyaan untuk subject 'you' wajib memakai 'Do', bukan 'Are'."
+                    }
+                ],
+                PRESENT_CONTINUOUS: [
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "Situasi: Kamu melihat adikmu di dapur dan bertanya apa yang sedang dia masak.",
+                        contextHint: "Pilih struktur kalimat tanya yang paling tepat:",
+                        options: [
+                            "What are you cooking right now?",
+                            "What do you cooking right now?",
+                            "What you are cooking right now?",
+                            "What are you cook right now?"
+                        ],
+                        correctText: "What are you cooking right now?",
+                        explanation: "Pertanyaan aktivitas yang sedang berlangsung memakai pola 'What + are + Subject + Verb-ing (cooking)'."
+                    }
+                ],
+                SIMPLE_PAST: [
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "Situasi: Kamu bertanya kepada rekan kerja jam berapa rapat selesai kemarin.",
+                        contextHint: "Pilih struktur kalimat tanya yang paling tepat:",
+                        options: [
+                            "What time did the meeting finish yesterday?",
+                            "What time was the meeting finish yesterday?",
+                            "What time did the meeting finished yesterday?",
+                            "What time does the meeting finish yesterday?"
+                        ],
+                        correctText: "What time did the meeting finish yesterday?",
+                        explanation: "Kalimat tanya masa lampau memakai auxiliary 'did' diikuti Verb 1 ('finish'), bukan Verb 2 ('finished')."
+                    }
+                ],
+                SIMPLE_FUTURE: [
+                    {
+                        theme: "Rencana Liburan",
+                        promptText: "Situasi: Kamu bertanya kapan temanmu akan berangkat ke bandara besok.",
+                        contextHint: "Pilih struktur kalimat tanya yang paling tepat:",
+                        options: [
+                            "When will you leave for the airport tomorrow?",
+                            "When do you will leave for the airport tomorrow?",
+                            "When are you will leave for the airport tomorrow?",
+                            "When will you leaving for the airport tomorrow?"
+                        ],
+                        correctText: "When will you leave for the airport tomorrow?",
+                        explanation: "Pertanyaan Simple Future menempatkan 'will' sebelum subject dan diikuti Verb 1 ('leave') tanpa 'do/are'."
+                    }
+                ],
+                MODAL_AUXILIARIES: [
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "Situasi: Kamu meminta bantuan pelayan untuk mengambilkan menu secara sopan.",
+                        contextHint: "Pilih struktur kalimat tanya yang paling tepat:",
+                        options: [
+                            "Could you bring me the menu, please?",
+                            "Could you to bring me the menu, please?",
+                            "Do you could bring me the menu, please?",
+                            "Could you bringing me the menu, please?"
+                        ],
+                        correctText: "Could you bring me the menu, please?",
+                        explanation: "Permintaan sopan menggunakan modal 'Could + Subject + Verb 1 (bring)' tanpa tambahan 'to' atau '-ing'."
+                    }
+                ]
+            },
+
+            ERROR_RECOG: {
+                SIMPLE_PRESENT: [
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "Kalimat salah: \"He don't understand the new rule.\"",
+                        contextHint: "Mana kalimat perbaikan yang paling tepat?",
+                        options: [
+                            "He doesn't understand the new rule.",
+                            "He doesn't understands the new rule.",
+                            "He isn't understand the new rule.",
+                            "He not understand the new rule."
+                        ],
+                        correctText: "He doesn't understand the new rule.",
+                        explanation: "Subject 'He' wajib memakai 'doesn't' diikuti Verb 1 murni ('understand' tanpa -s)."
+                    }
+                ],
+                PRESENT_CONTINUOUS: [
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "Kalimat salah: \"Wait a minute, I paying at the cashier now.\"",
+                        contextHint: "Mana kalimat perbaikan yang paling tepat?",
+                        options: [
+                            "Wait a minute, I am paying at the cashier now.",
+                            "Wait a minute, I is paying at the cashier now.",
+                            "Wait a minute, I do paying at the cashier now.",
+                            "Wait a minute, I am pay at the cashier now."
+                        ],
+                        correctText: "Wait a minute, I am paying at the cashier now.",
+                        explanation: "Verb-ing ('paying') dalam Present Continuous tidak bisa berdiri sendiri tanpa to-be. Pasangan 'I' adalah 'am'."
+                    }
+                ],
+                SIMPLE_PAST: [
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "Kalimat salah: \"I was came late to class yesterday.\"",
+                        contextHint: "Mana kalimat perbaikan yang paling tepat?",
+                        options: [
+                            "I came late to class yesterday.",
+                            "I was come late to class yesterday.",
+                            "I did came late to class yesterday.",
+                            "I am came late to class yesterday."
+                        ],
+                        correctText: "I came late to class yesterday.",
+                        explanation: "Kesalahan umum penutur Indonesia adalah menggabungkan 'was' dengan Verb 2 ('was came'). Cukup gunakan Verb 2 'came'."
+                    }
+                ],
+                SIMPLE_FUTURE: [
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "Kalimat salah: \"My sister will cooks dinner tonight.\"",
+                        contextHint: "Mana kalimat perbaikan yang paling tepat?",
+                        options: [
+                            "My sister will cook dinner tonight.",
+                            "My sister will to cook dinner tonight.",
+                            "My sister will cooking dinner tonight.",
+                            "My sister is will cook dinner tonight."
+                        ],
+                        correctText: "My sister will cook dinner tonight.",
+                        explanation: "Meskipun subject-nya tunggal ('My sister'), setelah 'will' kata kerja tidak boleh ditambah -s, wajib Verb 1 ('cook')."
+                    }
+                ],
+                MODAL_AUXILIARIES: [
+                    {
+                        theme: "Hangout & Teman",
+                        promptText: "Kalimat salah: \"We must to leave now or we will be late.\"",
+                        contextHint: "Mana kalimat perbaikan yang paling tepat?",
+                        options: [
+                            "We must leave now or we will be late.",
+                            "We must leaving now or we will be late.",
+                            "We are must leave now or we will be late.",
+                            "We must leaves now or we will be late."
+                        ],
+                        correctText: "We must leave now or we will be late.",
+                        explanation: "Setelah modal auxiliary ('must'), dilarang menambahkan 'to'. Harus langsung bertemu Verb 1 ('must leave')."
+                    }
+                ]
+            },
+
+            RULE_TOBE: {
+                SIMPLE_PRESENT: [
+                    {
+                        theme: "Masalah & Perasaan Harian",
+                        promptText: "Pilih kalimat dengan penggunaan To-Be / Auxiliary yang benar:",
+                        contextHint: "Ingat bedakan pemakaian am/is/are (untuk sifat/benda) dan do/does (untuk kata kerja).",
+                        options: [
+                            "They are very busy at the office today.",
+                            "They do very busy at the office today.",
+                            "They is very busy at the office today.",
+                            "They are work very hard today."
+                        ],
+                        correctText: "They are very busy at the office today.",
+                        explanation: "'Busy' adalah kata sifat (adjective), sehingga subject 'They' wajib memakai to-be 'are', bukan 'do' atau 'is'."
+                    }
+                ],
+                PRESENT_CONTINUOUS: [
+                    {
+                        theme: "Keluarga & Rumah",
+                        promptText: "Pilih pasangan Subject dan To-Be yang tepat untuk aktivitas sekarang:",
+                        contextHint: "Perhatikan jumlah subject pada kalimat.",
+                        options: [
+                            "The children are playing in the park now.",
+                            "The children is playing in the park now.",
+                            "The children do playing in the park now.",
+                            "The children be playing in the park now."
+                        ],
+                        correctText: "The children are playing in the park now.",
+                        explanation: "'The children' adalah bentuk jamak (plural = they), sehingga wajib dipasangkan dengan to-be 'are'."
+                    }
+                ],
+                SIMPLE_PAST: [
+                    {
+                        theme: "Rencana Liburan",
+                        promptText: "Pilih penggunaan Was / Were / Did yang tepat di masa lampau:",
+                        contextHint: "Perhatikan apakah setelahnya kata sifat atau kata kerja.",
+                        options: [
+                            "The weather was very cold last night.",
+                            "The weather did very cold last night.",
+                            "The weather were very cold last night.",
+                            "The weather was rained last night."
+                        ],
+                        correctText: "The weather was very cold last night.",
+                        explanation: "'Very cold' adalah kata sifat dan 'The weather' adalah subject tunggal, sehingga wajib memakai 'was'."
+                    }
+                ],
+                SIMPLE_FUTURE: [
+                    {
+                        theme: "Belanja & Kuliner",
+                        promptText: "Pilih struktur 'Be Going To' yang memiliki pasangan To-Be paling tepat:",
+                        contextHint: "Pastikan Subject cocok dengan am / is / are.",
+                        options: [
+                            "She is going to buy a new laptop tomorrow.",
+                            "She are going to buy a new laptop tomorrow.",
+                            "She going to buy a new laptop tomorrow.",
+                            "She will going to buy a new laptop tomorrow."
+                        ],
+                        correctText: "She is going to buy a new laptop tomorrow.",
+                        explanation: "Pola rencana masa depan dengan 'going to' untuk subject 'She' wajib didahului to-be 'is' ('She is going to buy')."
+                    }
+                ],
+                MODAL_AUXILIARIES: [
+                    {
+                        theme: "Pekerjaan & Kantor",
+                        promptText: "Pilih aturan kalimat Modal Auxiliary yang benar:",
+                        contextHint: "Ingat: Modal tidak boleh digabung dengan to-be am/is/are secara langsung.",
+                        options: [
+                            "You can use my charger if you need it.",
+                            "You are can use my charger if you need it.",
+                            "You can to use my charger if you need it.",
+                            "You can using my charger if you need it."
+                        ],
+                        correctText: "You can use my charger if you need it.",
+                        explanation: "Modal 'can' langsung ditempatkan setelah subject dan diikuti Verb 1 ('use') tanpa 'are' atau 'to'."
+                    }
+                ]
+            }
+        };
+
+        function showToast(message, type = "info") {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            const colors = {
+                success: "border-emerald-500/40 bg-emerald-950/90 text-emerald-200",
+                error: "border-rose-500/40 bg-rose-950/90 text-rose-200",
+                info: "border-indigo-500/40 bg-slate-900/95 text-indigo-200"
+            };
+            const icons = {
+                success: "ph-check-circle text-emerald-400",
+                error: "ph-warning-circle text-rose-400",
+                info: "ph-sparkle text-indigo-400"
+            };
+
+            toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl backdrop-blur-md text-xs sm:text-sm font-medium transition-all duration-300 ${colors[type] || colors.info}`;
+            toast.innerHTML = `
+                <i class="ph-fill ${icons[type] || icons.info} text-lg shrink-0"></i>
+                <span class="flex-1">${message}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(-8px)";
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+
+        function copyTextToClipboard(text, successMsg = "Berhasil disalin ke clipboard!") {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand("copy");
+                showToast(successMsg, "success");
+            } catch (err) {
+                showToast("Gagal menyalin teks.", "error");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        // Pronounce English option or sentence using Web Speech API for beginner learners
+        function speakEnglish(text, event) {
+            if (event) event.stopPropagation();
+            if (!('speechSynthesis' in window)) {
+                showToast("Browser kamu belum mendukung fitur suara.", "info");
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const cleanText = text.replace(/___/g, "blank").replace(/["*]/g, "");
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = "en-US";
+            utterance.rate = 0.92; // Slightly slower for beginners
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function pickNextQuizType(selectedValue) {
+            const typeKeys = Object.keys(QUIZ_TYPES);
+            if (selectedValue !== "AUTO" && QUIZ_TYPES[selectedValue]) {
+                return QUIZ_TYPES[selectedValue];
+            }
+            // Rotate automatically without repeating the immediate previous type
+            lastRotationIndex = (lastRotationIndex + 1) % typeKeys.length;
+            return QUIZ_TYPES[typeKeys[lastRotationIndex]];
+        }
+
+        function pickQuestionCount(selectedValue) {
+            if (selectedValue === "AUTO") {
+                const choices = [5, 5, 10, 15]; // Weighted toward 5 & 10
+                return choices[Math.floor(Math.random() * choices.length)];
+            }
+            return parseInt(selectedValue, 10) || 5;
+        }
+
+        function pickTheme(selectedValue) {
+            if (selectedValue !== "AUTO") return selectedValue;
+            return DAILY_THEMES[Math.floor(Math.random() * DAILY_THEMES.length)];
+        }
+
+        async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+            for (let attempt = 0; attempt < retries; attempt++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) return await response.json();
+                    if (response.status === 429 || response.status >= 500) {
+                        await new Promise(r => setTimeout(r, delay * Math.pow(2, attempt)));
+                        continue;
+                    }
+                    throw new Error(`HTTP status ${response.status}`);
+                } catch (err) {
+                    if (attempt === retries - 1) throw err;
+                    await new Promise(r => setTimeout(r, delay * Math.pow(2, attempt)));
+                }
+            }
+        }
+
+        async function generateQuizViaGeminiAI(quizTypeObj, count, theme) {
+            const effectiveKey = userCustomApiKey || apiKey;
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${effectiveKey}`;
+
+            // Summarize already used questions to enforce Anti-Repetition
+            const recentUsed = Array.from(usedQuestionSignatures).slice(-25).join(" | ");
+
+            const systemPrompt = `Kamu adalah GENERATOR KUIS BAHASA INGGRIS PEMULA (DAILY CONVERSATION).
+ATURAN KERAS:
+1. Semua soal WAJIB menggunakan HANYA 1 jenis kuis ini: "${quizTypeObj.label}" (${quizTypeObj.instructionPrefix}).
+2. Gunakan kosakata sehari-hari (High-Frequency Words) level pemula, panjang kalimat maksimal 5 sampai 10 kata.
+3. Fokus hanya pada 5 Grammar Wajib secara berurutan:
+   - Simple Present Tense
+   - Present Continuous Tense
+   - Simple Past Tense
+   - Simple Future Tense
+   - Modal Auxiliaries
+4. Jika jumlah soal = ${count}, distribusikan secara berurutan mengikuti 5 kategori grammar tersebut.
+5. Opsi jawaban (4 opsi) HARUS TRICKY, natural, dan menjebak kesalahan umum penutur Indonesia (seperti lupa to-be, double verb 'was came', lupa s/es, stative verb + ing, atau 'must to').
+6. ANTI-REPETISI: Dilarang membuat kalimat yang mirip dengan histori berikut: [${recentUsed || "Belum ada histori"}].
+7. Bahasa pengantar & penjelasan: Bahasa Indonesia singkat, jelas, maksimal 2 kalimat per soal.`;
+
+            const userQuery = `Buatkan ${count} soal kuis bahasa Inggris dengan jenis kuis "${quizTypeObj.label}" dan nuansa tema "${theme}". Pastikan urutan mengikuti 5 Grammar Wajib dan posisi jawaban benar teracak rata.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            quizTypeTitle: { type: "STRING" },
+                            themeUsed: { type: "STRING" },
+                            questions: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        grammarCategory: { type: "STRING" },
+                                        promptText: { type: "STRING" },
+                                        contextHint: { type: "STRING" },
+                                        options: {
+                                            type: "ARRAY",
+                                            items: { type: "STRING" }
+                                        },
+                                        correctText: { type: "STRING" },
+                                        explanation: { type: "STRING" },
+                                        vocabItems: {
+                                            type: "ARRAY",
+                                            items: {
+                                                type: "OBJECT",
+                                                properties: {
+                                                    word: { type: "STRING" },
+                                                    partOfSpeech: { type: "STRING" },
+                                                    meaning: { type: "STRING" },
+                                                    grammarNote: { type: "STRING" }
+                                                },
+                                                propertyOrdering: ["word", "partOfSpeech", "meaning", "grammarNote"]
+                                            }
+                                        }
+                                    },
+                                    propertyOrdering: ["grammarCategory", "promptText", "contextHint", "options", "correctText", "explanation", "vocabItems"]
+                                }
+                            }
+                        },
+                        propertyOrdering: ["quizTypeTitle", "themeUsed", "questions"]
+                    }
+                }
+            };
+
+            const result = await fetchWithRetry(apiUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const rawJson = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!rawJson) throw new Error("Empty response from Gemini API");
+            return JSON.parse(rawJson);
+        }
+
+        function generateQuizLocally(quizTypeObj, count, preferredTheme) {
+            const typePool = LOCAL_QUESTION_BANK[quizTypeObj.code] || LOCAL_QUESTION_BANK.FILL_BLANK;
+            const questions = [];
+
+            for (let i = 0; i < count; i++) {
+                const grammarObj = MANDATORY_GRAMMARS[i % MANDATORY_GRAMMARS.length];
+                let candidates = typePool[grammarObj.id] || [];
+
+                // Fallback across types if a pool has fewer items than requested
+                if (candidates.length === 0) {
+                    candidates = LOCAL_QUESTION_BANK.FILL_BLANK[grammarObj.id];
+                }
+
+                // Filter out already used signatures first
+                let freshCandidates = candidates.filter(c => !usedQuestionSignatures.has(c.promptText));
+                if (freshCandidates.length === 0) {
+                    freshCandidates = candidates;
+                }
+
+                // Prefer matching theme if available
+                const themeMatched = freshCandidates.filter(c => c.theme === preferredTheme);
+                const chosen = (themeMatched.length > 0 ? themeMatched : freshCandidates)[
+                    Math.floor(Math.random() * (themeMatched.length > 0 ? themeMatched.length : freshCandidates.length))
+                ];
+
+                questions.push({
+                    grammarCategory: grammarObj.name,
+                    grammarShort: grammarObj.shortName,
+                    badgeColor: grammarObj.badgeColor,
+                    promptText: chosen.promptText,
+                    contextHint: chosen.contextHint || quizTypeObj.instructionPrefix,
+                    options: [...chosen.options],
+                    correctText: chosen.correctText,
+                    explanation: chosen.explanation,
+                    theme: chosen.theme
+                });
+            }
+
+            return {
+                quizTypeTitle: quizTypeObj.label,
+                quizTypeCode: quizTypeObj.code,
+                themeUsed: preferredTheme,
+                questions
+            };
+        }
+
+        function normalizeAndRandomizeQuiz(rawQuiz, quizTypeObj, theme) {
+            const letters = ["A", "B", "C", "D"];
+            const normalizedQuestions = (rawQuiz.questions || []).map((q, idx) => {
+                const grammarMeta = MANDATORY_GRAMMARS[idx % MANDATORY_GRAMMARS.length];
+                // Ensure options are randomized so correct answer letter is truly random A/B/C/D
+                let opts = Array.isArray(q.options) && q.options.length === 4 ? [...q.options] : [];
+                const targetCorrect = q.correctText || opts[0];
+                if (!opts.includes(targetCorrect) && opts.length === 4) {
+                    opts[0] = targetCorrect;
+                }
+                const shuffledOpts = shuffleArray(opts);
+                const correctIdx = Math.max(0, shuffledOpts.indexOf(targetCorrect));
+                const correctLetter = letters[correctIdx];
+
+                usedQuestionSignatures.add(q.promptText);
+
+                return {
+                    index: idx,
+                    grammarCategory: grammarMeta.name,
+                    grammarShort: grammarMeta.shortName,
+                    badgeColor: grammarMeta.badgeColor,
+                    promptText: q.promptText,
+                    contextHint: q.contextHint || quizTypeObj.instructionPrefix,
+                    options: shuffledOpts.map((text, oIdx) => ({
+                        letter: letters[oIdx],
+                        text
+                    })),
+                    correctLetter,
+                    correctText: targetCorrect,
+                    explanation: q.explanation,
+                    vocabItems: q.vocabItems || null
+                };
+            });
+
+            // Sort strictly by the 5 Mandatory Grammar categories order if count > 5
+            const orderedQuestions = [];
+            MANDATORY_GRAMMARS.forEach(g => {
+                normalizedQuestions
+                    .filter(q => q.grammarCategory === g.name)
+                    .forEach(q => orderedQuestions.push(q));
+            });
+
+            return {
+                id: "QUIZ-" + Date.now().toString().slice(-5),
+                timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }),
+                quizTypeTitle: quizTypeObj.label,
+                quizTypeCode: quizTypeObj.code,
+                themeUsed: rawQuiz.themeUsed || theme,
+                questions: orderedQuestions.map((q, i) => ({ ...q, index: i }))
+            };
+        }
+
+        const DROPDOWN_IDS = ["selectQuizType", "selectQuestionCount", "selectContextTheme", "selectEngineMode"];
+
+        function closeAllCustomDropdowns(exceptId = null) {
+            DROPDOWN_IDS.forEach(id => {
+                if (id === exceptId) return;
+                const menu = document.getElementById(`menu-${id}`);
+                const caret = document.getElementById(`caret-${id}`);
+                if (menu) menu.classList.add("hidden");
+                if (caret) caret.classList.remove("rotate-180");
+            });
+        }
+
+        function toggleCustomDropdown(dropdownId, event) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById(`menu-${dropdownId}`);
+            const caret = document.getElementById(`caret-${dropdownId}`);
+            if (!menu) return;
+
+            const isOpening = menu.classList.contains("hidden");
+            closeAllCustomDropdowns(dropdownId);
+
+            if (isOpening) {
+                menu.classList.remove("hidden");
+                if (caret) caret.classList.add("rotate-180");
+            } else {
+                menu.classList.add("hidden");
+                if (caret) caret.classList.remove("rotate-180");
+            }
+        }
+
+        function selectCustomOption(dropdownId, value, labelText) {
+            const hiddenInput = document.getElementById(dropdownId);
+            const labelEl = document.getElementById(`label-${dropdownId}`);
+            const menu = document.getElementById(`menu-${dropdownId}`);
+
+            if (hiddenInput) hiddenInput.value = value;
+            if (labelEl) labelEl.textContent = labelText;
+
+            if (menu) {
+                const items = menu.querySelectorAll(".custom-dropdown-item");
+                items.forEach(btn => {
+                    const isMatch = btn.getAttribute("data-value") === value;
+                    btn.classList.toggle("active", isMatch);
+                    const checkIcon = btn.querySelector(".check-icon");
+                    if (checkIcon) {
+                        checkIcon.classList.toggle("hidden", !isMatch);
+                    }
+                });
+            }
+
+            closeAllCustomDropdowns();
+        }
+
+        // Close any open dropdown when clicking outside
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest("[data-dropdown]")) {
+                closeAllCustomDropdowns();
+            }
+        });
+
+        async function triggerGenerateQuiz(forceRandomAll = false) {
+            const typeSelect = document.getElementById("selectQuizType");
+            const countSelect = document.getElementById("selectQuestionCount");
+            const themeSelect = document.getElementById("selectContextTheme");
+            const engineSelect = document.getElementById("selectEngineMode");
+
+            if (forceRandomAll) {
+                selectCustomOption("selectQuizType", "AUTO", "🔄 Otomatis Rotasi (Rekomendasi)");
+                selectCustomOption("selectContextTheme", "AUTO", "🌈 Variasi Otomatis (Anti-Bosan)");
+            }
+
+            const chosenQuizType = pickNextQuizType(typeSelect.value);
+            const chosenCount = pickQuestionCount(countSelect.value);
+            const chosenTheme = pickTheme(themeSelect.value);
+            const engineMode = engineSelect.value;
+
+            // Show loading banner
+            const loadingBanner = document.getElementById("loadingBanner");
+            const btnGenerate = document.getElementById("btnGenerate");
+            loadingBanner.classList.remove("hidden");
+            btnGenerate.disabled = true;
+
+            userAnswers = {};
+            document.getElementById("quizSummaryBanner").classList.add("hidden");
+
+            let rawQuizData = null;
+            let sourceUsed = "Mesin Instan";
+
+            try {
+                if (engineMode === "HYBRID") {
+                    rawQuizData = await generateQuizViaGeminiAI(chosenQuizType, chosenCount, chosenTheme);
+                    sourceUsed = "Gemini AI";
+                } else {
+                    rawQuizData = generateQuizLocally(chosenQuizType, chosenCount, chosenTheme);
+                }
+            } catch (err) {
+                // Seamless fallback to Smart Local Generator so Vercel deployment without API key still works flawlessly
+                rawQuizData = generateQuizLocally(chosenQuizType, chosenCount, chosenTheme);
+                sourceUsed = "Smart Engine Bawaan";
+            } finally {
+                loadingBanner.classList.add("hidden");
+                btnGenerate.disabled = false;
+            }
+
+            currentQuizData = normalizeAndRandomizeQuiz(rawQuizData, chosenQuizType, chosenTheme);
+            registerQuizVocabToBank(currentQuizData);
+            sessionHistory.unshift({
+                id: currentQuizData.id,
+                time: currentQuizData.timestamp,
+                quizType: currentQuizData.quizTypeTitle,
+                theme: currentQuizData.themeUsed,
+                count: currentQuizData.questions.length,
+                source: sourceUsed,
+                samplePrompt: currentQuizData.questions[0]?.promptText || ""
+            });
+
+            renderInteractiveQuiz();
+            renderWhatsAppCodeBlocks();
+            renderHistoryView();
+            renderQuizSummaryVocab();
+
+            const totalWaBlocks = currentQuizData.questions.length * 5 + 1;
+            document.getElementById("waCountBadge").textContent = totalWaBlocks;
+            document.getElementById("historyBadge").textContent = sessionHistory.length;
+
+            showToast(`Kuis baru siap buat Sayang! (${chosenQuizType.label}) 💙`, "success");
+        }
+
+        function renderInteractiveQuiz() {
+            if (!currentQuizData) return;
+
+            document.getElementById("activeQuizTypeBadge").textContent = `Jenis: ${currentQuizData.quizTypeTitle}`;
+            document.getElementById("activeThemeBadge").textContent = `Tema: ${currentQuizData.themeUsed}`;
+            updateScoreProgressUI();
+
+            const container = document.getElementById("interactiveQuestionsContainer");
+            container.innerHTML = "";
+
+            currentQuizData.questions.forEach((q, qIdx) => {
+                const card = document.createElement("div");
+                card.className = "glass-card rounded-2xl p-5 sm:p-6 transition-all border border-sky-800/50 hover:border-sky-500/50";
+                card.id = `question-card-${qIdx}`;
+
+                const optionsHtml = q.options.map(opt => `
+                    <button
+                        onclick="handleSelectOption(${qIdx}, '${opt.letter}')"
+                        id="opt-btn-${qIdx}-${opt.letter}"
+                        class="option-btn w-full text-left p-3.5 sm:p-4 rounded-xl bg-[#07182c]/90 hover:bg-sky-950/90 border border-sky-800/70 flex items-center justify-between gap-3 group"
+                    >
+                        <div class="flex items-center gap-3 min-w-0">
+                            <span id="opt-badge-${qIdx}-${opt.letter}" class="w-8 h-8 rounded-lg bg-sky-950 group-hover:bg-sky-500/30 text-sky-200 group-hover:text-white font-bold text-xs flex items-center justify-center shrink-0 border border-sky-700/60 transition-colors">
+                                ${opt.letter}
+                            </span>
+                            <span class="text-sm sm:text-base font-medium text-sky-50 break-words">${opt.text}</span>
+                        </div>
+                        <span
+                            onclick="speakEnglish('${opt.text.replace(/'/g, "\\'")}', event)"
+                            title="Dengarkan pengucapan bahasa Inggris"
+                            class="p-2 rounded-lg text-sky-400/70 hover:text-sky-200 hover:bg-sky-900/50 transition-colors shrink-0"
+                        >
+                            <i class="ph-bold ph-speaker-high text-base"></i>
+                        </span>
+                    </button>
+                `).join("");
+
+                card.innerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-sky-950 border border-sky-800/70 text-sky-200 font-bold text-xs flex items-center justify-center">
+                                #${qIdx + 1}
+                            </span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg border ${q.badgeColor}">
+                                ${q.grammarCategory}
+                            </span>
+                        </div>
+                        <button
+                            onclick="speakEnglish('${q.promptText.replace(/'/g, "\\'")}', event)"
+                            class="text-xs text-sky-300 hover:text-white flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#07182c] border border-sky-800/70 transition-colors"
+                        >
+                            <i class="ph-bold ph-speaker-high"></i>
+                            <span>Dengarkan Soal</span>
+                        </button>
+                    </div>
+
+                    <p class="text-xs text-sky-300/80 mb-1">${q.contextHint}</p>
+                    <h4 class="text-base sm:text-lg font-bold text-white mb-4 leading-snug">
+                        ${q.promptText}
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        ${optionsHtml}
+                    </div>
+
+                    <!-- Instant Grammar Explanation Box -->
+                    <div id="explanation-box-${qIdx}" class="hidden mt-4 p-4 rounded-xl border text-xs sm:text-sm leading-relaxed"></div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function handleSelectOption(qIdx, selectedLetter) {
+            if (!currentQuizData || userAnswers[qIdx]) return; // Lock once answered
+
+            const q = currentQuizData.questions[qIdx];
+            userAnswers[qIdx] = selectedLetter;
+            const isCorrect = selectedLetter === q.correctLetter;
+            const selectedBtn = document.getElementById(`opt-btn-${qIdx}-${selectedLetter}`);
+            const questionCard = document.getElementById(`question-card-${qIdx}`);
+
+            if (isCorrect) {
+                playFeedbackSound("correct");
+                triggerHapticVibration([35, 50, 65]);
+                spawnCorrectParticles(selectedBtn);
+            } else {
+                playFeedbackSound("wrong");
+                triggerHapticVibration([110, 45, 110]);
+            }
+
+            q.options.forEach(opt => {
+                const btn = document.getElementById(`opt-btn-${qIdx}-${opt.letter}`);
+                const badge = document.getElementById(`opt-badge-${qIdx}-${opt.letter}`);
+                if (!btn || !badge) return;
+                btn.disabled = true;
+
+                if (opt.letter === q.correctLetter) {
+                    btn.className = "option-btn animate-correct-pop w-full text-left p-3.5 sm:p-4 rounded-xl bg-emerald-500/15 border-2 border-emerald-400/70 shadow-lg shadow-emerald-500/10 flex items-center justify-between gap-3";
+                    badge.className = "w-8 h-8 rounded-lg bg-emerald-400 text-slate-950 font-extrabold text-xs flex items-center justify-center shrink-0";
+                } else if (opt.letter === selectedLetter && !isCorrect) {
+                    btn.className = "option-btn animate-wrong-shake w-full text-left p-3.5 sm:p-4 rounded-xl bg-rose-500/15 border-2 border-rose-400/70 shadow-lg shadow-rose-500/10 flex items-center justify-between gap-3";
+                    badge.className = "w-8 h-8 rounded-lg bg-rose-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0";
+                } else {
+                    btn.className = "option-btn w-full text-left p-3.5 sm:p-4 rounded-xl bg-[#07182c]/40 border border-sky-900/40 opacity-55 flex items-center justify-between gap-3";
+                }
+            });
+
+            if (questionCard) {
+                questionCard.classList.remove("animate-wrong-shake", "animate-correct-pop");
+                void questionCard.offsetWidth; // Reflow to restart animation cleanly
+                questionCard.classList.add(isCorrect ? "animate-correct-pop" : "animate-wrong-shake");
+            }
+
+            const expBox = document.getElementById(`explanation-box-${qIdx}`);
+            if (expBox) {
+                expBox.classList.remove("hidden");
+                const questionVocabs = q.vocabList || extractVocabForQuestion(q);
+                const miniVocabHtml = questionVocabs.map(v => `
+                    <div class="mt-2.5 pt-2.5 border-t border-sky-400/20 flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <div>
+                            <span class="font-bold text-cyan-300"><i class="ph-fill ph-book-bookmark"></i> Kosakata Penting:</span>
+                            <span class="font-extrabold text-white ml-1">${v.word}</span>
+                            <span class="text-sky-300 mx-1">=</span>
+                            <span class="font-semibold text-cyan-200">${v.meaning}</span>
+                        </div>
+                        <button onclick="speakEnglish('${v.word.replace(/→/g, "to").replace(/\(.*?\)/g, "").replace(/'/g, "\\'")}', event)" class="px-2 py-1 rounded-lg bg-sky-950/90 hover:bg-sky-900 text-cyan-300 border border-sky-700/60 font-semibold flex items-center gap-1">
+                            <i class="ph-bold ph-speaker-high"></i>
+                            <span>Cara Baca</span>
+                        </button>
+                    </div>
+                `).join("");
+
+                if (isCorrect) {
+                    expBox.className = "mt-4 p-4 rounded-xl border border-cyan-400/40 bg-cyan-950/40 text-cyan-50 text-xs sm:text-sm leading-relaxed animate-correct-pop";
+                    expBox.innerHTML = `
+                        <div class="font-bold text-cyan-300 flex items-center gap-1.5 mb-1">
+                            <i class="ph-fill ph-check-circle text-base"></i>
+                            <span>Yeay, pintar banget Sayang! 💙 Jawaban: ${q.correctLetter}. ${q.correctText}</span>
+                        </div>
+                        <p class="text-sky-100">${q.explanation}</p>
+                        ${miniVocabHtml}
+                    `;
+                } else {
+                    expBox.className = "mt-4 p-4 rounded-xl border border-rose-400/40 bg-rose-950/30 text-rose-100 text-xs sm:text-sm leading-relaxed animate-wrong-shake";
+                    expBox.innerHTML = `
+                        <div class="font-bold text-rose-300 flex items-center gap-1.5 mb-1">
+                            <i class="ph-fill ph-heart text-base"></i>
+                            <span>Gapapa Sayang, kita pelajari bareng ya! Jawaban yang tepat: ${q.correctLetter}. ${q.correctText}</span>
+                        </div>
+                        <p class="text-sky-100">${q.explanation}</p>
+                        ${miniVocabHtml}
+                    `;
+                }
+            }
+
+            updateScoreProgressUI();
+        }
+
+        function updateScoreProgressUI() {
+            if (!currentQuizData) return;
+            const total = currentQuizData.questions.length;
+            const answeredCount = Object.keys(userAnswers).length;
+            let correctCount = 0;
+
+            currentQuizData.questions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correctLetter) correctCount++;
+            });
+
+            const score = Math.round((correctCount / total) * 100);
+            document.getElementById("quizProgressText").textContent = `${answeredCount} / ${total} Soal`;
+            document.getElementById("quizScoreText").textContent = `${score} Poin`;
+
+            if (answeredCount === total && total > 0) {
+                setTimeout(() => {
+                    playFeedbackSound("complete");
+                    triggerHapticVibration([40, 50, 40, 50, 140]);
+                }, 320);
+                const summaryBanner = document.getElementById("quizSummaryBanner");
+                summaryBanner.classList.remove("hidden");
+                summaryBanner.classList.add("animate-correct-pop");
+                document.getElementById("finalScoreTitle").textContent = `Skor Sayang: ${score} / 100 (${correctCount}/${total} Benar) 💙`;
+                document.getElementById("finalScoreFeedback").textContent =
+                    score >= 80
+                        ? "Proud of you, Sayang! 🌟 Pemahaman 5 grammar dasar kamu makin jago nih!"
+                        : "Kerja bagus Sayang! Pelan-pelan kita baca rangkuman di bawah ya, lama-lama pasti makin lancar! 💙";
+
+                const breakdownList = document.getElementById("summaryBreakdownList");
+                breakdownList.innerHTML = currentQuizData.questions.map((q, idx) => `
+                    <div class="p-3 rounded-xl bg-[#07182c]/90 border border-sky-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="font-bold text-sky-300">${q.grammarShort}</span>
+                            <span class="text-sky-500 mx-1.5">•</span>
+                            <span class="font-semibold text-white">Jawaban ${q.correctLetter} (${q.correctText})</span>
+                            <p class="text-xs text-sky-200/80 mt-0.5">${q.explanation}</p>
+                        </div>
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-lg shrink-0 self-start sm:self-center ${
+                            userAnswers[idx] === q.correctLetter
+                                ? "bg-emerald-500/20 text-emerald-300"
+                                : "bg-rose-500/20 text-rose-300"
+                        }">
+                            ${userAnswers[idx] === q.correctLetter ? "✓ Benar" : `✗ Dijawab ${userAnswers[idx]}`}
+                        </span>
+                    </div>
+                `).join("");
+
+                renderQuizSummaryVocab();
+            }
+        }
+
+        function buildWhatsAppBlocksArray() {
+            if (!currentQuizData) return [];
+            const blocks = [];
+
+            currentQuizData.questions.forEach((q, idx) => {
+                // 1 Code Block for Question
+                const questionBlockText = `**Kuis: ${q.grammarCategory}**\n**${q.contextHint}**\n**${q.promptText}**`;
+                blocks.push({
+                    label: `Block #${blocks.length + 1} — Soal ${idx + 1} (${q.grammarShort})`,
+                    type: "SOAL",
+                    content: questionBlockText
+                });
+
+                // 4 Code Blocks for Options A-D
+                q.options.forEach(opt => {
+                    blocks.push({
+                        label: `Block #${blocks.length + 1} — Opsi ${opt.letter}`,
+                        type: `OPSI ${opt.letter}`,
+                        content: `**${opt.letter}. ${opt.text}**`
+                    });
+                });
+            });
+
+            // Final Code Block: Summary & Explanation
+            const summaryLines = currentQuizData.questions.map(
+                q => `**${q.grammarShort}** : Jawaban **${q.correctLetter}** : ${q.explanation}`
+            );
+            const summaryBlockText = `**Ringkasan Jawaban & Penjelasan**\n\n` + summaryLines.join("\n");
+            blocks.push({
+                label: `Block #${blocks.length + 1} — Ringkasan Jawaban & Penjelasan`,
+                type: "RINGKASAN",
+                content: summaryBlockText
+            });
+
+            return blocks;
+        }
+
+        function renderWhatsAppCodeBlocks() {
+            const container = document.getElementById("waBlocksContainer");
+            const blocks = buildWhatsAppBlocksArray();
+
+            container.innerHTML = blocks.map((b, idx) => `
+                <div class="rounded-xl bg-slate-900/95 border border-slate-800 overflow-hidden">
+                    <div class="px-4 py-2 bg-slate-950/70 border-b border-slate-800 flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">
+                                ${b.type}
+                            </span>
+                            <span class="text-xs font-medium text-slate-400">${b.label}</span>
+                        </div>
+                        <button
+                            onclick="copySingleBlock(${idx})"
+                            class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:border-emerald-500/40 transition-all"
+                        >
+                            <i class="ph-bold ph-copy"></i>
+                            <span>Salin</span>
+                        </button>
+                    </div>
+                    <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 whitespace-pre-wrap overflow-x-auto leading-relaxed">${b.content}</pre>
+                </div>
+            `).join("");
+        }
+
+        function copySingleBlock(blockIdx) {
+            const blocks = buildWhatsAppBlocksArray();
+            if (!blocks[blockIdx]) return;
+            copyTextToClipboard(blocks[blockIdx].content, `${blocks[blockIdx].label} disalin!`);
+        }
+
+        function copyAllWaBlocks() {
+            const blocks = buildWhatsAppBlocksArray();
+            const formatted = blocks.map(b => "```text\n" + b.content + "\n```").join("\n\n");
+            copyTextToClipboard(formatted, `Seluruh ${blocks.length} Code Block berhasil disalin!`);
+        }
+
+        function copyMasterPrompt() {
+            const masterPrompt = `Peranmu adalah GENERATOR KONTEN "KUIS BAHASA INGGRIS DINAMIS" untuk WhatsApp Channel.
+SEMUA OUTPUT WAJIB dikirim DALAM FORMAT CODE BLOCK.
+TRIGGER COMMAND: Buat
+Total output = TEPAT 26 CODE BLOCK (5 Grammar Wajib: Simple Present, Present Continuous, Simple Past, Simple Future, Modal Auxiliaries).
+Tingkat Kesulitan: Pemula (5-10 kata, high-frequency vocabulary, jebakan murni logika grammar).`;
+            copyTextToClipboard(masterPrompt, "Master Prompt berhasil disalin!");
+        }
+
+        function renderHistoryView() {
+            const container = document.getElementById("historyListContainer");
+            if (sessionHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-slate-500 text-sm">
+                        Belum ada riwayat sesi. Klik "Buat Kuis Sekarang" untuk memulai.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = sessionHistory.map(item => `
+                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="space-y-1">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-mono font-bold text-indigo-400">${item.id}</span>
+                            <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">${item.quizType}</span>
+                            <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300">${item.count} Soal</span>
+                            <span class="text-xs text-slate-400">• Tema: ${item.theme}</span>
+                        </div>
+                        <p class="text-xs text-slate-400 truncate max-w-xl">Contoh Soal: "${item.samplePrompt}"</p>
+                    </div>
+                    <div class="text-right text-xs text-slate-400 shrink-0">
+                        <div>Pukul ${item.time}</div>
+                        <div class="text-[11px] text-indigo-300">${item.source}</div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function clearSessionHistory() {
+            sessionHistory = [];
+            usedQuestionSignatures.clear();
+            learnedVocabMap.clear();
+            if (currentQuizData) {
+                registerQuizVocabToBank(currentQuizData);
+            }
+            document.getElementById("historyBadge").textContent = "0";
+            renderHistoryView();
+            showToast("Memori anti-repetisi & kamus sesi berhasil di-reset.", "info");
+        }
+
+        function switchTab(tabName) {
+            ["play", "vocab", "wa", "history"].forEach(t => {
+                const view = document.getElementById(`view-${t}`);
+                const btn = document.getElementById(`tabBtn-${t}`);
+                if (!view || !btn) return;
+                if (t === tabName) {
+                    view.classList.remove("hidden");
+                    btn.className = "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow";
+                } else {
+                    view.classList.add("hidden");
+                    btn.className = "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 text-sky-300/70 hover:text-white";
+                }
+            });
+        }
+
+        function toggleApiModal(show) {
+            const modal = document.getElementById("apiModal");
+            if (show) {
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+            } else {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+            }
+        }
+
+        function saveCustomApiKey() {
+            const input = document.getElementById("customApiKeyInput");
+            userCustomApiKey = input.value.trim();
+            toggleApiModal(false);
+            showToast(
+                userCustomApiKey
+                    ? "API Key kustom disimpan untuk sesi ini!"
+                    : "Menggunakan mode default Canvas / Smart Fallback.",
+                "success"
+            );
+        }
